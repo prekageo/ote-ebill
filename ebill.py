@@ -254,7 +254,10 @@ def get_calls(html_str):
     no_columns = len(row)
     if no_columns == 8:
       row_counter += 1
-      if int(row[0].text) != row_counter:
+      row_0 = row[0].text
+      if row_0[0] == 'K':
+        row_0 = row_0[1:]
+      if int(row_0) != row_counter:
         raise Exception(exception_text % 3)
       service = row[1].text.strip()
       callee = row[2].text.strip()

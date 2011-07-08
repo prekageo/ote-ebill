@@ -8,7 +8,7 @@ $(function () {
     var plot_options = {
         xaxis: { mode: "time" },
         selection: { mode: "x" },
-        bars:{show:true,lineWidth:0,barWidth:24*3600*1000},
+        bars:{show:true,lineWidth:0.1,barWidth:24*3600*1000},
         series:{shadowSize:0,stack:true},
         grid: { hoverable: true,autoHighlight:false },
         legend:{container:"#legend"},
@@ -108,7 +108,7 @@ function edit(number,def) {
   if (desc == null) {
     return;
   }
-  $.post("/addphone", {number:number,desc:desc}, function() {
+  $.post("/stats/addphone", {number:number,desc:desc}, function() {
     refresh_analysis_table();
   });
 }
