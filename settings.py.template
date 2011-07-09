@@ -1,5 +1,10 @@
 # coding=utf-8
+database_driver = 'sqlite3'
 database_path = '/database/path'
+
+# database_driver = 'mysql'
+# database = 'database'
+# database_user = 'user'
 
 username = 'username'
 password = 'password'

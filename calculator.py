@@ -125,7 +125,7 @@ class Calculator:
   def get_call_cost(self, row):
     """ Calculate and return the cost of the given call. """
 
-    time = datetime.datetime.strptime(row[2],'%Y-%m-%d %H:%M:%S')
+    time = datetime.datetime.fromtimestamp(int(row[2]))
     self.min_time = min(self.min_time, time)
     self.max_time = max(self.max_time, time)
     duration = int(row[3])
@@ -206,10 +206,12 @@ class Calculator:
     """
 
     cursor = db.get_db_cursor()
-    sql = '''select * from calls where call_group not in ("ALD","SKO","ALK",
-             "PSE") and strftime("%s",datetime) >= ? and
-             strftime("%s",datetime) < ?'''
-    cursor.execute(sql, (min,max))
+    sql = '''select service, callee, '''+db.datetime('datetime')+''' datetime,
+             duration, seg, cost, call_group from calls where call_group not in
+             ("ALD","SKO","ALK","PSE") and '''+db.datetime('datetime')+''' >= ?
+             and '''+db.datetime('datetime')+''' < ?'''
+    sql = db.normalize_sql(sql)
+    cursor.execute(sql, (str(min),str(max)))
     rows = [row for row in cursor]
     ret = []
     for conf in self.products:

@@ -59,7 +59,7 @@ class EbillStats:
       min = 0
 
     if max is None:
-      cursor.execute('select strftime("%s",datetime("now"))')
+      cursor.execute(db.normalize_sql('select ' + db.datetime_now()))
       max = cursor.fetchone()[0]
     return (min,max)
 
@@ -81,10 +81,11 @@ class EbillStats:
 
     def get_data_for_top(top,top_condition):
       params = (min,max)
-      sql = '''select strftime("%s",date(datetime,"start of '''+unit+'''")) as
-               day,sum(cost) from calls where call_group '''+top_condition+'''
-               and strftime("%s",datetime) >= ? and strftime("%s",datetime) <= ?
-               group by day order by day'''
+      sql = '''select '''+db.datetime_start_of('datetime',unit)+''' as day,
+               sum(cost) from calls where call_group '''+top_condition+'''
+               and '''+db.datetime('datetime')+''' >= ? and '''
+      sql +=   db.datetime('datetime')+''' <= ? group by day order by day'''
+      sql = db.normalize_sql(sql)
       cursor.execute(sql, params)
       return {
         'label':self.call_group[top]['desc'],
@@ -109,7 +110,7 @@ class EbillStats:
     """ Returns an HTML table containing all telephone records. """
 
     cursor = db.get_db_cursor()
-    cursor.execute('select * from calls order by datetime desc')
+    cursor.execute(db.normalize_sql('select * from calls order by datetime desc'))
     headings = ['service','callee','datetime','duration','seg','cost',
                 'call_group']
     return self.result_set_to_html_table(cursor, headings = headings)
@@ -126,9 +127,10 @@ class EbillStats:
     (min,max)=self.get_default_min_max_time(cursor,min,max)
     params = (min,max)
 
-    cursor.execute('''select call_group from calls where strftime("%s",datetime)
-                      >= ? and strftime("%s",datetime) <= ? group by call_group
-                      order by sum(cost) desc limit 3''', params)
+    cursor.execute(db.normalize_sql('''select call_group from calls where '''+
+                      db.datetime('datetime')+'''>= ? and '''+
+                      db.datetime('datetime')+''' <= ? group by call_group order
+                      by sum(cost) desc limit 3'''), params)
     tops = [row[0] for row in cursor]
     return json.dumps(tops)
 
@@ -153,11 +155,11 @@ class EbillStats:
 
     cursor = db.get_db_cursor()
     params = (min,max)
-    sql = '''select callee,round(sum(cost),2),call_group,desc from calls left
-             outer join telbook on callee=number where strftime("%s",datetime)
-             >= ? and strftime("%s",datetime) <= ? group by callee order by
-             sum(cost) desc'''
-    cursor.execute(sql, params)
+    sql = '''select callee,round(sum(cost),2),call_group,`desc` from calls left
+             outer join telbook on callee=number where '''
+    sql +=   db.datetime('datetime')+'''>= ? and '''+db.datetime('datetime')
+    sql +=   ''' <= ? group by callee order by sum(cost) desc'''
+    cursor.execute(db.normalize_sql(sql), params)
     data = [[row[0],
              float(row[1]),
              self.call_group[row[2]]['color'],
@@ -173,13 +175,13 @@ class EbillStats:
 
     desc = desc.strip()
     if len(desc) == 0:
-      cursor.execute('delete from telbook where number=?',(number,))
+      cursor.execute(db.normalize_sql('delete from telbook where number=?'),(number,))
       conn.commit()
       return
 
-    cursor.execute('select count(*) from telbook where number=?',(number,))
+    cursor.execute(db.normalize_sql('select count(*) from telbook where number=?'),(number,))
     if cursor.fetchone()[0] == 0:
-      cursor.execute('insert into telbook values (?,?)', (number,desc))
+      cursor.execute(db.normalize_sql('insert into telbook values (?,?)'), (number,desc))
     else:
-      cursor.execute('update telbook set desc=? where number=?', (desc,number))
+      cursor.execute(db.normalize_sql('update telbook set `desc`=? where number=?'), (desc,number))
     conn.commit()
