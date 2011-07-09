@@ -14,7 +14,10 @@ from __future__ import with_statement
 import copy
 import datetime
 import decimal
-import simplejson as json
+try:
+    import json
+except ImportError:
+    import simplejson as json
 import db
 import cherrypy
 
@@ -25,7 +28,7 @@ class Calculator:
     """ Read the JSON configuration and store data into respective fields. """
 
     with open('calculator_conf.js','r') as f:
-      data = json.load(f, use_decimal=True)
+      data = json.load(f, parse_float=decimal.Decimal)
     self.companies = data['companies']
     self.configurations = data['configurations']
     self.assets = data['assets']
@@ -221,4 +224,4 @@ class Calculator:
     for i in ret:
       for j in i[2]:
         i[2][j] = str(i[2][j].quantize(decimal.Decimal('0.01')))
-    return json.dumps(ret, use_decimal=True)
+    return json.dumps(ret)

@@ -4,7 +4,10 @@
 """ Implements the statistics component of the web application. """
 
 import cherrypy
-import simplejson as json
+try:
+    import json
+except ImportError:
+    import simplejson as json
 import db
 
 class EbillStats:
@@ -86,7 +89,7 @@ class EbillStats:
       return {
         'label':self.call_group[top]['desc'],
         'color':self.call_group[top]['color'],
-        'data':[[1000*int(row[0]),row[1]] for row in cursor],
+        'data':[[1000*int(row[0]),float(row[1])] for row in cursor],
       }
 
     data = []
@@ -156,7 +159,7 @@ class EbillStats:
              sum(cost) desc'''
     cursor.execute(sql, params)
     data = [[row[0],
-             row[1],
+             float(row[1]),
              self.call_group[row[2]]['color'],
              row[3]] for row in cursor]
     return json.dumps(data)
