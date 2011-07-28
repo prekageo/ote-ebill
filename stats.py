@@ -174,6 +174,7 @@ class EbillStats:
     cursor = conn.cursor()
 
     desc = desc.strip()
+    desc = unicode(desc, 'utf8')
     if len(desc) == 0:
       cursor.execute(db.normalize_sql('delete from telbook where number=?'),(number,))
       conn.commit()
