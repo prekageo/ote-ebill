@@ -33,18 +33,18 @@ class WebPlayer:
     Initializes the HTTP client.
     debug -- if set to True will write to a file every response received
     """
-    
+
     cj = cookielib.CookieJar()
     self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
     self.headers = {}
     self.debug = debug
     self.counter = 1
-  
+
   def set_headers(self, headers):
     """Modifies HTTP headers sent to the web server."""
-    
+
     self.headers = headers
-    
+
   def visit(self, url, validator=None, params=None):
     """
     Visits a URL, possibly running a validator function on the response.
@@ -52,7 +52,7 @@ class WebPlayer:
     validator -- a function to call passing the response text for validation
     params -- POST parameters (they should be gived with no URL encoding)
     """
-    
+
     sys.stdout.write('Visiting %s...' % url)
     if params != None:
       params = urllib.urlencode(params)
@@ -79,7 +79,7 @@ def assert_by_id(node, id, tag=None, attribs={}):
   tag -- if given, will match the tag of the node found with this value
   attribs -- the node found should have the given attributes
   """
-  
+
   try:
     element = node.get_element_by_id(id)
     if tag != None and element.tag != tag:
@@ -92,29 +92,29 @@ def assert_by_id(node, id, tag=None, attribs={}):
 
   except KeyError:
     raise Exception('Node with ID "%s" not found in document.' % id)
-  
+
 def validate_0(html_str):
   """Validate the login page."""
-  
+
   root = html.fromstring(html_str)
   assert_by_id(root,'IDToken1','input',{'type':'text'})
   assert_by_id(root,'IDToken2','input',{'type':'password'})
 
 def validate_1(html_str):
   """Validate the intermediate login page."""
-  
+
   root = html.fromstring(html_str)
   assert_by_id(root,'form-password','input',{'type':'password'})
 
 def validate_2(html_str):
   """Validate the main page after login."""
-  
+
   root = html.fromstring(html_str)
   assert_by_id(root,'logout','input',{'type':'button'})
 
 def validate_3(html_str):
   """Validate the results page."""
-  
+
   root = html.fromstring(html_str)
   assert_by_id(root,'results','td')
 
@@ -124,7 +124,7 @@ def get_calls_in_html(inv_info):
   invoice.
   inv_info -- the invoice ID
   """
-  
+
   DATA1 = {'IDToken2':settings.password,'IDToken1':settings.username,
     'realm':'oteportal','goto':'https://ebill.ote.gr/wwwote/index.jsp'}
   DATA3 = {
@@ -161,14 +161,14 @@ sqlite3.register_adapter(decimal.Decimal, adapt_decimal)
 
 class Call:
   """Represents a call."""
-  
+
   call_group = {
     u'Αλλες Κλήσεις': 'ALK',
-    u'Αστικές': 'AST',
-    u'Προς \'Αλλα Σταθερά Δίκτυα': 'ALD',
-    u'Προς Κινητά': 'KIN',
+    u'ΑΣΤΙΚΕΣ ΚΛΗΣΕΙΣ': 'AST',
+    u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ': 'ALD',
+    u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΚΙΝΗΤΑ': 'KIN',
     u'Υπεραστικές': 'YPE',
-    u'Προς Σύντομους Κωδικούς': 'SKO',
+    u'ΠΡΟΣ ΣΥΝΤΟΜΟΥΣ ΚΩΔΙΚΟΥΣ': 'SKO',
     u'Χρήση Ψηφιακών Ευκολιών': 'PSE',
   }
 
@@ -182,7 +182,7 @@ class Call:
     seg -- unknown
     cost -- the cost of the call
     """
-    
+
     self.service = service;
     self.callee = callee;
     self.datetime = datetime;
@@ -190,21 +190,21 @@ class Call:
     self.seg = seg;
     self.cost = cost;
     self.group = 'UNK';
-    
+
   def __repr__(self):
     return str(self.__dict__)
-    
+
   def set_group(self, group_full_name):
     """Set the group of the call."""
-    
+
     self.group = self.call_group[group_full_name]
-  
+
   def save(self, cursor):
     """
     Save the call to the underlying database if it does not already exist.
     cursor -- the database cursor to use for saving
     """
-    
+
     params = (self.callee,self.datetime)
     cursor.execute('select count(*) from calls where callee=? and datetime=?',
         params)
@@ -214,41 +214,58 @@ class Call:
         self.cost,self.group)
     cursor.execute('insert into calls values (?,?,?,?,?,?,?)', params)
     return True
-  
+
   @staticmethod
   def init_db(cursor):
     """Create the table for saving the calls into the database."""
-    
+
     cursor.execute('''create table if not exists calls (service,callee,datetime,
           duration,seg,cost,call_group)''')
-    
+
 def parse_date_time(date_str, time_str):
   """Transform a date and time from string form to a datetime object."""
-  
+
   day,month,year = [int(x) for x in date_str.split('/')]
   hour,minute,second = [int(x) for x in time_str.split(':')]
   return datetime.datetime(year+2000,month,day,hour,minute,second)
-  
+
 def parse_duration(time_str):
   """Transform a duration from string form to a timedelta object."""
-  
-  minutes,seconds = [int(x) for x in time_str.split(':')]
-  return datetime.timedelta(minutes=minutes,seconds=seconds)
+
+  v = [int(x) for x in time_str.split(':')]
+  if len(v) == 2:
+    return datetime.timedelta(minutes=v[0],seconds=v[1])
+  elif len(v) == 3:
+    return datetime.timedelta(hours=v[0],minutes=v[1],seconds=v[2])
+  else:
+    raise Exception('Invalid duration: %s' % time_str)
+
+def parse_cost(cost_str):
+  """ Transform a cost from string form to a decimal value."""
+
+  return decimal.Decimal(cost_str.replace(',','.'))
 
 def get_calls(html_str):
   """Traverse the HTML page of the calls and return a list of call objects."""
-  
+
   root = html.fromstring(html_str)
   rows = root.xpath('/html/body/table/tbody/form/tr/td/table/tr[2]/td/table/tr/td/table/tbody/tr/td/table/tbody/tr')
 
   exception_text = 'Invalid HTML encountered. Code=%d.'
-  
+
   if len(rows[0]) != 2:
     raise Exception(exception_text % 1)
   if len(rows[1]) != 8:
     raise Exception(exception_text % 2)
 
-  calls = []
+  total_duration = datetime.timedelta()
+  total_cost = 0
+  def verify_correct_totals():
+    if total_duration.total_seconds() != 0:
+      raise Exception(exception_text % 7)
+    elif total_cost != 0:
+      raise Exception(exception_text % 8)
+
   row_counter = 0
   for row in rows[2:]:
     no_columns = len(row)
@@ -261,26 +278,25 @@ def get_calls(html_str):
         raise Exception(exception_text % 3)
       service = row[1].text.strip()
       callee = row[2].text.strip()
-      datetime = parse_date_time(row[3].text,row[4].text)
+      datetime_ = parse_date_time(row[3].text,row[4].text)
       duration = parse_duration(row[5].text)
       seg = row[6].text.strip()
-      cost = decimal.Decimal(row[7].text.replace(',','.'))
-      calls.append(Call(service,callee,datetime,duration,seg,cost))
+      cost = parse_cost(row[7].text)
+      call = Call(service,callee,datetime_,duration,seg,cost)
+      call.set_group(type)
+      yield call
+      total_duration -= duration
+      total_cost -= cost
     elif no_columns == 1 and row[0].attrib.get('colspan') == '8':
-      group = row[0][0].text.strip()
-      (type,count) = group.split(':')
-      type = type.strip()
-      count = int(count)
-      if (len(calls) != count):
-        raise Exception(exception_text % 4)
-      for call in calls:
-        call.set_group(type)
-        yield call
-      calls = []
+      pass
+    elif no_columns == 4 and row[0].attrib.get('colspan') == '5':
+      verify_correct_totals()
+      type = row[0][0].text.strip()
+      total_duration = parse_duration(row[1].text)
+      total_cost = parse_cost(row[3].text)
     else:
       raise Exception(exception_text % 5)
-  if len(calls) > 0:
-    raise Exception(exception_text % 6)
+  verify_correct_totals()
 
 def store_calls(database_filename,html_str):
   """
@@ -288,7 +304,7 @@ def store_calls(database_filename,html_str):
   database_filename -- the filename of the database to use
   html_str -- the calls in HTML form
   """
-  
+
   saved = 0
   unsaved = 0
 
@@ -308,7 +324,7 @@ def main():
   Read the invoice ID from the command line arguments and save the calls into
   the database.
   """
-  
+
   if len(sys.argv) < 2:
     raise Exception('Insufficient number of command line arguments.')
   inv_info = sys.argv[1]
