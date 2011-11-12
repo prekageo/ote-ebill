@@ -170,6 +170,7 @@ class Call:
     u'ΥΠΕΡΑΣΤΙΚΕΣ ΚΛΗΣΕΙΣ': 'YPE',
     u'ΠΡΟΣ ΣΥΝΤΟΜΟΥΣ ΚΩΔΙΚΟΥΣ': 'SKO',
     u'Χρήση Ψηφιακών Ευκολιών': 'PSE',
+    u'Υπηρεσίες Πολυμεσικής Πληροφόρησης MEDIATEL': 'ALK',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
