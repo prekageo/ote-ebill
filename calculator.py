@@ -14,6 +14,7 @@ from __future__ import with_statement
 import copy
 import datetime
 import decimal
+import os.path
 try:
     import json
 except ImportError:
@@ -27,7 +28,7 @@ class Calculator:
   def __init__(self):
     """ Read the JSON configuration and store data into respective fields. """
 
-    with open('calculator_conf.js','r') as f:
+    with open(os.path.join(os.path.dirname(__file__), 'calculator_conf.js'),'r') as f:
       data = json.load(f, parse_float=decimal.Decimal)
     self.companies = data['companies']
     self.configurations = data['configurations']
