@@ -25,6 +25,11 @@ $(function () {
     $.getJSON("/stats/gettops", data2, function(data) {
       data2.tops = data;
       $.getJSON("/stats/costperday", data2, function(data) {
+        for (i in data) {
+          for (j in data[i].data) {
+            data[i].data[j][1] = Math.max(data[i].data[j][1], 0.01);
+          }
+        }
         plot = $.plot($("#placeholder"), data, plot_options);
       });
       $.getJSON("/stats/costpermonth", {tops:data}, function(data) {
