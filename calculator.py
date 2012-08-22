@@ -90,9 +90,12 @@ class Calculator:
       if isinstance(v, dict):
         self.merge(dest[k], v)
       else:
-        if k == 'monthly_charges' and isinstance(v,unicode) and \
+        if k == 'monthly_charges' and isinstance(v,basestring) and \
             v.startswith('+'):
-          dest[k] += decimal.Decimal(v[1:])
+          if isinstance(dest[k],basestring) and dest[k].startswith('+'):
+            dest[k] = '+%s' % (decimal.Decimal(dest[k][1:]) + decimal.Decimal(v[1:]))
+          else:
+            dest[k] += decimal.Decimal(v[1:])
         else:
           dest[k] = v
 
