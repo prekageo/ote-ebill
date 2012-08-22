@@ -43,19 +43,19 @@
   padding: 1em 2em;
   display: none;
 }
-#placeholder table {
+#results table {
   border-collapse: collapse;
 }
-#placeholder td,#placeholder th {
+#results td,#results th {
   border: 1px solid #000;
   line-height: 1.5em;
   padding: 0 1em;
 }
-#placeholder th {
+#results th {
   background: #55b;
   color: #ddd;
 }
-#placeholder td.r {
+#results td.r {
   text-align: right;
 }
 #results .info {

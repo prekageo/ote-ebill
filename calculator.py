@@ -132,6 +132,7 @@ class Calculator:
     """
 
     self.costs = {}
+    self.skipped = []
     self.min_time = datetime.datetime.fromtimestamp(2**31-1)
     self.max_time = datetime.datetime.fromtimestamp(0)
     self.conf = self.products[product_name]
@@ -150,9 +151,11 @@ class Calculator:
     zero = decimal.Decimal(0)
 
     days = (self.max_time-self.min_time).days+1
+    self.costs['time_based_charges'] = reduce(lambda x, y: x+self.costs[y], self.costs, zero)
     self.costs['monthly_charges'] = self.conf['monthly_charges'] * days/30
+    self.costs['total'] = self.costs['time_based_charges'] + self.costs['monthly_charges']
+
     self.costs['monthly_charges'] = self.costs['monthly_charges'].quantize(q)
-    self.costs['total'] = reduce(lambda x, y: x+self.costs[y], self.costs, zero)
     return self.costs
 
   def get_call_cost(self, row):
@@ -236,6 +239,51 @@ class Calculator:
     sql = db.normalize_sql(sql)
     cursor.execute(sql, (str(min),str(max)))
     rows = [row for row in cursor]
+
+    overview = {
+      'count_calls': len(rows),
+      'cost': {
+        'local': 0,
+        'long_distance': 0,
+        'mobile': 0,
+        'other': 0,
+      },
+      'duration': {
+        'local': 0,
+        'long_distance': 0,
+        'mobile': 0,
+        'other': 0,
+      },
+      'first_call_timestamp': 0,
+      'last_call_timestamp': 0,
+      'count_days': 0,
+    }
+    min_time = 2**31-1
+    max_time = 0
+    import __builtin__
+    for row in rows:
+      call_category = row['call_category']
+      if call_category is None:
+        call_category = 'other'
+      overview['cost'][call_category] += decimal.Decimal(row['cost'])
+      overview['duration'][call_category] += int(row['duration'])
+      datetime_ = int(row['datetime'])
+      min_time = __builtin__.min(min_time, datetime_)
+      max_time = __builtin__.max(max_time, datetime_)
+    overview['first_call_timestamp'] = min_time
+    overview['last_call_timestamp'] = max_time
+    overview['count_days'] = (datetime.datetime.fromtimestamp(max_time) - datetime.datetime.fromtimestamp(min_time)).days+1
+
+    skipped = []
+    for row in rows:
+      if row['call_category'] is None:
+        skipped.append(row)
+
+    overview['skipped'] = {
+      'list': [row['callee'] for row in skipped],
+      'total_cost': sum(decimal.Decimal(row['cost']) for row in skipped),
+    }
+
     ret = []
     for conf in self.products:
       self.begin(conf)
@@ -248,4 +296,10 @@ class Calculator:
 
     ret.sort(key=lambda x:x[2]['total'])
     ret = recursive_decimal_to_string(ret)
+    overview = recursive_decimal_to_string(overview)
+
+    ret = {
+      'invoices': ret,
+      'overview': overview,
+    }
     return json.dumps(ret)

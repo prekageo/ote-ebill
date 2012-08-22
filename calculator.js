@@ -12,25 +12,42 @@ $(function () {
   $("#datepicker-to").datepicker("setDate",date_to);
   
   $("#button").click(function() {
-    $("#placeholder").html("<img src=\"images/ajax-loading.gif\">");
+    $("#placeholder,#overview").html("<img src=\"images/ajax-loading.gif\">");
     $("#results").fadeIn(3000);
     var min = $("#datepicker-from").datepicker("getDate").getTime()/1000;
     var max = $("#datepicker-to").datepicker("getDate").getTime()/1000;
     $.getJSON("/calculator/calculate", {"min":min,"max":max}, function(data) {
       var text = "<table><tr><th>Σύνολο</th><th>Εταιρεία</th><th>Πρόγραμμα"+
-                 "</th><th>Τέλη</th><th>Αστικές</th><th>Υπεραστικές</th><th>"+
+                 "</th><th>Τέλη</th><th>Χρονοχρέωση</th><th>Αστικές</th><th>Υπεραστικές</th><th>"+
                  "Κινητά</th></tr>";
-      for (var row in data) {
-        text += "<tr><td class=\"r\">"+data[row][2]["total"]+"</td><td style="+
-                "\"height:25px;background:url('"+data[row][1]+"') no-repeat "+
-                "scroll 50% 50% transparent;\"></td><td>"+data[row][0]+"</td>"+
-                "<td class=\"r\">"+data[row][2]["monthly_charges"]+"</td><td "+
-                "class=\"r\">"+data[row][2]["local"]+"</td><td class=\"r\">"+
-                data[row][2]["long_distance"]+"</td><td class=\"r\">"+
-                data[row][2]["mobile"]+"</td></tr>";
+      var invoices = data.invoices;
+      for (var row in invoices) {
+        text += "<tr>";
+        text += "<td class=\"r\">"+invoices[row][2]["total"]+"</td>";
+        text += "<td style=\"height:25px;background:url('"+invoices[row][1]+"') no-repeat scroll 50% 50% transparent;\"></td>";
+        text += "<td>"+invoices[row][0]+"</td>";
+        text += "<td class=\"r\">"+invoices[row][2]["monthly_charges"]+"</td>";
+        text += "<td>"+invoices[row][2]["time_based_charges"]+"</td>";
+        text += "<td class=\"r\">"+invoices[row][2]["local"]+"</td>";
+        text += "<td class=\"r\">"+invoices[row][2]["long_distance"]+"</td>";
+        text += "<td class=\"r\">"+invoices[row][2]["mobile"]+"</td>";
+        text += "</tr>";
       }
       text += "</table>";
       $("#placeholder").html(text);
+      
+      var text = "<table>";
+      text += "<tr><th>Πλήθος κλήσεων</th><td>"+data.overview.count_calls+"</td></tr>";
+      text += "<tr><th>Αστικές κλήσεις</th><td>"+Math.round(data.overview.duration.local/60)+"' (&euro; "+data.overview.cost.local+")</td></tr>";
+      text += "<tr><th>Υπεραστικές κλήσεις</th><td>"+Math.round(data.overview.duration.long_distance/60)+"' (&euro; "+data.overview.cost.long_distance+")</td></tr>";
+      text += "<tr><th>Κλήσεις προς κινητά</th><td>"+Math.round(data.overview.duration.mobile/60)+"' (&euro; "+data.overview.cost.mobile+")</td></tr>";
+      text += "<tr><th>Λοιπές κλήσεις</th><td>"+Math.round(data.overview.duration.other/60)+"' (&euro; "+data.overview.cost.other+")</td></tr>";
+      text += "<tr><th>Πρώτη κλήση</th><td>"+new Date(data.overview.first_call_timestamp*1000).toLocaleString()+"</td></tr>";
+      text += "<tr><th>Τελευταία κλήση</th><td>"+new Date(data.overview.last_call_timestamp*1000).toLocaleString()+"</td></tr>";
+      text += "<tr><th>Ημέρες</th><td>"+data.overview.count_days+"</td></tr>";
+      text += "<tr><th>Κλήσεις που αγνοήθηκαν</th><td>"+data.overview.skipped.list.length+" - &euro; "+data.overview.skipped.total_cost+" - "+data.overview.skipped.list+"</td></tr>";
+      text += "</table>";
+      $("#overview").html(text);
     });
     return false;
   });
