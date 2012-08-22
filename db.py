@@ -13,7 +13,9 @@ def get_db_conn():
   """ Returns a connection to the database. """
 
   if settings.database_driver == 'sqlite3':
-    return sqlite3.connect(settings.database_path)
+    conn = sqlite3.connect(settings.database_path)
+    conn.row_factory = sqlite3.Row
+    return conn
   elif settings.database_driver == 'mysql':
     conn = MySQLdb.connect(db = settings.database, user = settings.database_user)
     conn.cursor().execute('SET time_zone = "+00:00"')
