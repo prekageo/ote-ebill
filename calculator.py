@@ -22,6 +22,32 @@ except ImportError:
 import db
 import cherrypy
 
+def recursive_decimal_to_string(obj):
+  """
+  Helper method that recursively converts decimals to string. It can traverse
+  lists, dictionaries and tuples. Decimals are rounded to 2 decimal places.
+  """
+
+  if isinstance(obj, decimal.Decimal):
+    return str(obj.quantize(decimal.Decimal('0.01')))
+  elif isinstance(obj, dict):
+    ret = {}
+    for key in obj:
+      ret[key] = recursive_decimal_to_string(obj[key])
+    return ret
+  elif isinstance(obj, list):
+    ret = []
+    for el in obj:
+      ret.append(recursive_decimal_to_string(el))
+    return ret
+  elif isinstance(obj, tuple):
+    ret = []
+    for el in obj:
+      ret.append(recursive_decimal_to_string(el))
+    return tuple(ret)
+  else:
+    return obj
+
 class Calculator:
   """ The calculator component of the web application. """
 
@@ -230,7 +256,5 @@ class Calculator:
       ret.append(line)
 
     ret.sort(key=lambda x:x[2]['total'])
-    for i in ret:
-      for j in i[2]:
-        i[2][j] = str(i[2][j].quantize(decimal.Decimal('0.01')))
+    ret = recursive_decimal_to_string(ret)
     return json.dumps(ret)
