@@ -58,7 +58,10 @@ class Calculator:
       if 'copy_of' in self.assets[k]:
         changes = self.assets[k]['changes']
         self.assets[k] = copy.deepcopy(self.assets[self.assets[k]['copy_of']])
-        self.merge(self.assets[k], changes)
+        if 'addon_to' in self.assets[k]:
+          self.merge(self.assets[k]['changes'], changes)
+        else:
+          self.merge(self.assets[k], changes)
       for kk in deps:
         if deps[kk] == k:
           deps[kk] = None
