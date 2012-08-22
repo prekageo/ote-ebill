@@ -15,12 +15,17 @@ import cookielib
 import datetime
 import decimal
 import gzip
+import os
 import settings
 import sqlite3
 import sys
 import urllib
 import urllib2
 from lxml import html
+try:
+    import json
+except ImportError:
+    import simplejson as json
 
 class WebPlayer:
   """
@@ -214,9 +219,21 @@ class Call:
         params)
     if cursor.fetchone()[0] > 0:
       return False
+
+    row = {
+      'service': self.service,
+      'callee': self.callee,
+      'datetime': self.datetime,
+      'duration': self.duration,
+      'seg': self.seg,
+      'cost': self.cost,
+      'call_group': self.group,
+    }
+    self.call_category = Call.compute_call_category(row)
+
     params = (self.service,self.callee,self.datetime,self.duration,self.seg,
-        self.cost,self.group)
-    cursor.execute('insert into calls values (?,?,?,?,?,?,?)', params)
+        self.cost,self.group,self.call_category)
+    cursor.execute('insert into calls values (?,?,?,?,?,?,?,?)', params)
     return True
 
   @staticmethod
@@ -230,6 +247,21 @@ class Call:
 
     cursor.execute('''create table if not exists calls (service,callee,datetime,
           duration,seg,cost,call_group,call_category)''')
+
+  @staticmethod
+  def compute_call_category(call):
+    """
+    Runs a set of configured rules against a row of the calls table and returns
+    a string that identifies the call category (local, long distance, etc.)
+    """
+
+    global conf
+    for rule in conf['rules']:
+      res = eval(rule)
+      if res is not None:
+        return res
+
+    return None
 
 def parse_date_time(date_str, time_str):
   """Transform a date and time from string form to a datetime object."""
@@ -333,6 +365,10 @@ def main():
   Read the invoice ID from the command line arguments and save the calls into
   the database.
   """
+
+  with open(os.path.join(os.path.dirname(__file__), 'ebill.conf.js'),'r') as f:
+    global conf
+    conf = json.load(f)
 
   if len(sys.argv) < 2:
     raise Exception('Insufficient number of command line arguments.')
