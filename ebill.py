@@ -223,8 +223,13 @@ class Call:
   def init_db(cursor):
     """Create the table for saving the calls into the database."""
 
+    try:
+      cursor.execute('''select call_category from calls where 1=0''')
+    except sqlite3.OperationalError:
+      cursor.execute('''alter table calls add column call_category''')
+
     cursor.execute('''create table if not exists calls (service,callee,datetime,
-          duration,seg,cost,call_group)''')
+          duration,seg,cost,call_group,call_category)''')
 
 def parse_date_time(date_str, time_str):
   """Transform a date and time from string form to a datetime object."""
