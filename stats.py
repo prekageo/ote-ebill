@@ -13,14 +13,11 @@ import db
 class EbillStats:
   """ The statistics component of the web application. """
 
-  call_group = {
-    'ALK': {'color':'#f00','desc':'Αλλες Κλήσεις'},
-    'AST': {'color':'#0f0','desc':'Αστικές'},
-    'ALD': {'color':'#00f','desc':'Προς Άλλα Σταθερά Δίκτυα'},
-    'KIN': {'color':'#ff0','desc':'Προς Κινητά'},
-    'YPE': {'color':'#f0f','desc':'Υπεραστικές'},
-    'SKO': {'color':'#0ff','desc':'Προς Σύντομους Κωδικούς'},
-    'PSE': {'color':'#ccc','desc':'Χρήση Ψηφιακών Ευκολιών'},
+  call_category = {
+    'special': {'color':'#f00','desc':'Αλλες Κλήσεις'},
+    'local': {'color':'#0f0','desc':'Αστικές'},
+    'mobile': {'color':'#ff0','desc':'Προς Κινητά'},
+    'long_distance': {'color':'#f0f','desc':'Υπεραστικές'},
     'REST':{'color':'#888','desc':'Υπόλοιπες'},
   }
 
@@ -82,14 +79,14 @@ class EbillStats:
     def get_data_for_top(top,top_condition):
       params = (min,max)
       sql = '''select '''+db.datetime_start_of('datetime',unit)+''' as day,
-               sum(cost) from calls where call_group '''+top_condition+'''
+               sum(cost) from calls where call_category '''+top_condition+'''
                and '''+db.datetime('datetime')+''' >= ? and '''
       sql +=   db.datetime('datetime')+''' <= ? group by day order by day'''
       sql = db.normalize_sql(sql)
       cursor.execute(sql, params)
       return {
-        'label':self.call_group[top]['desc'],
-        'color':self.call_group[top]['color'],
+        'label':self.call_category[top]['desc'],
+        'color':self.call_category[top]['color'],
         'data':[[1000*int(row[0]),float(row[1])] for row in cursor],
       }
 
@@ -127,9 +124,9 @@ class EbillStats:
     (min,max)=self.get_default_min_max_time(cursor,min,max)
     params = (min,max)
 
-    cursor.execute(db.normalize_sql('''select call_group from calls where '''+
+    cursor.execute(db.normalize_sql('''select call_category from calls where '''+
                       db.datetime('datetime')+'''>= ? and '''+
-                      db.datetime('datetime')+''' <= ? group by call_group order
+                      db.datetime('datetime')+''' <= ? group by call_category order
                       by sum(cost) desc limit 3'''), params)
     tops = [row[0] for row in cursor]
     return json.dumps(tops)
@@ -155,14 +152,14 @@ class EbillStats:
 
     cursor = db.get_db_cursor()
     params = (min,max)
-    sql = '''select callee,round(sum(cost),2),call_group,`desc` from calls left
+    sql = '''select callee,round(sum(cost),2),call_category,`desc` from calls left
              outer join telbook on callee=number where '''
     sql +=   db.datetime('datetime')+'''>= ? and '''+db.datetime('datetime')
     sql +=   ''' <= ? group by callee order by sum(cost) desc'''
     cursor.execute(db.normalize_sql(sql), params)
     data = [[row[0],
              float(row[1]),
-             self.call_group[row[2]]['color'],
+             self.call_category[row[2]]['color'],
              row[3]] for row in cursor]
     return json.dumps(data)
 
