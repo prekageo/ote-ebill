@@ -36,7 +36,7 @@ class EbillStats:
           heading = 'Column ' + str(i)
         else:
           heading = headings[i]
-        html += '<th>' + heading + '</th'
+        html += '<th>' + heading + '</th>'
       html += '</tr>'
     while row:
       html += '<tr>'
