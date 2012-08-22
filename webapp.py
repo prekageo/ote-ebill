@@ -29,7 +29,7 @@ class Webapp:
 
 conf = os.path.join(os.path.dirname(__file__), 'webapp.conf')
 
-cherrypy.config.update({'tools.staticdir.dir': os.path.dirname(__file__)})
+cherrypy.config.update({'tools.staticdir.dir': os.path.abspath(os.path.dirname(__file__))})
 
 if __name__ == '__main__':
   cherrypy.quickstart(Webapp(), config=conf)
