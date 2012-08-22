@@ -166,7 +166,7 @@ class Calculator:
     call_group = row[6]
     cost = decimal.Decimal(0)
 
-    category_name = self.category_from_call_group(call_group)
+    category_name = row['call_category']
     category = self.conf['categories'][category_name]
     free = self.free[category['use_free']]
 
@@ -194,16 +194,6 @@ class Calculator:
     rounded_cost = cost.quantize(decimal.Decimal('.0001'))
     self.costs[category_name] += rounded_cost
     return rounded_cost
-
-  def category_from_call_group(self, call_group):
-    """ Map the call group given by OTE e-bill service to the call category. """
-
-    map = {
-      'AST':'local',
-      'KIN':'mobile',
-      'YPE':'long_distance',
-    }
-    return map[call_group]
 
   def choose_time_interval(self, datetimes, time):
     """ Choose the time interval into which the given time falls in. """
@@ -240,8 +230,8 @@ class Calculator:
 
     cursor = db.get_db_cursor()
     sql = '''select service, callee, '''+db.datetime('datetime')+''' datetime,
-             duration, seg, cost, call_group from calls where call_group not in
-             ("ALD","SKO","ALK","PSE") and '''+db.datetime('datetime')+''' >= ?
+             duration, seg, cost, call_category from calls where
+             '''+db.datetime('datetime')+''' >= ?
              and '''+db.datetime('datetime')+''' < ?'''
     sql = db.normalize_sql(sql)
     cursor.execute(sql, (str(min),str(max)))
@@ -250,7 +240,8 @@ class Calculator:
     for conf in self.products:
       self.begin(conf)
       for row in rows:
-        cost = self.get_call_cost(row)
+        if row['call_category'] is not None:
+          cost = self.get_call_cost(row)
       results = self.end()
       line = (conf,self.companies[self.configurations[conf]['company']],results)
       ret.append(line)
