@@ -15,6 +15,7 @@ import cookielib
 import datetime
 import decimal
 import gzip
+import optparse
 import os
 import settings
 import sqlite3
@@ -249,6 +250,25 @@ class Call:
           duration,seg,cost,call_group,call_category)''')
 
   @staticmethod
+  def run_category_rules(conn):
+    """
+    Update the call category for every call by running the rules found in the
+    configuration.
+    """
+
+    cursor = conn.cursor()
+    cursor.execute('''select * from calls''')
+
+    cursor2 = conn.cursor()
+    sql = '''update calls set call_category=? where callee=? and datetime=?'''
+    for row in cursor:
+      call_category = Call.compute_call_category(row)
+      params = (call_category, row['callee'], row['datetime'])
+      cursor2.execute(sql,params)
+      assert cursor2.rowcount == 1
+    conn.commit()
+
+  @staticmethod
   def compute_call_category(call):
     """
     Runs a set of configured rules against a row of the calls table and returns
@@ -370,9 +390,22 @@ def main():
     global conf
     conf = json.load(f)
 
-  if len(sys.argv) < 2:
+  parser = optparse.OptionParser()
+  parser.add_option('--run-category-rules', action='store_true',
+      dest='run_category_rules', default=False,
+      help='run category rules and store results in the database')
+  (options, args) = parser.parse_args()
+
+  if options.run_category_rules:
+    conn = sqlite3.connect(settings.database_path)
+    conn.row_factory = sqlite3.Row
+    Call.init_db(conn.cursor())
+    Call.run_category_rules(conn)
+    return
+
+  if len(args) < 1:
     raise Exception('Insufficient number of command line arguments.')
-  inv_info = sys.argv[1]
+  inv_info = args[0]
   print 'Gettings records for invoice "%s"...' % inv_info
   html_str = get_calls_in_html(inv_info)
   saved,unsaved = store_calls(settings.database_path,html_str)
