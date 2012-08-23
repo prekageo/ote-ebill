@@ -63,3 +63,7 @@
   font-style:italic;
   margin-top:1em;
 }
+.tab {
+  display: none;
+  margin-top: 1em;
+}

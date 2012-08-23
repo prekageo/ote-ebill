@@ -11,6 +11,12 @@ $(function () {
   $("#datepicker-from").datepicker("setDate",date_from);
   $("#datepicker-to").datepicker("setDate",date_to);
 
+  $(".tab-header input[type=radio]").change(function() {
+    var selected_tab = $(":checked").index(".tab-header input[type=radio]");
+    $(".tab").hide();
+    $(".tab").eq(selected_tab).show();
+  });
+
   $("#button").click(function() {
     $("#placeholder,#overview").html("<img src=\"images/ajax-loading.gif\">");
     $("#results").fadeIn(3000);

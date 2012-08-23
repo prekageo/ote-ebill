@@ -14,8 +14,17 @@
     </div>
     <div id="contents">
       <div id="query">
-        <div class="title">Επιλέξτε ημερομήνιες για σύγκριση τιμολογίων</div>
-        <div class="line"><label for="datepicker-from">Αρχική ημερομηνία:</label><input type="text" id="datepicker-from"><label for="datepicker-to">Τελική ημερομηνία:</label><input type="text" id="datepicker-to"></div>
+        <div class="title">Πηγή δεδομένων</div>
+        <div class="line tab-header">
+          <input checked="checked" name="datasource" value="1" id="datasource-db" type="radio"><label for="datasource-db">Βάση δεδομένων</label>
+        </div>
+        <div>
+          <div class="tab" style="display:block">
+            <div class="line">
+              <label for="datepicker-from">Αρχική ημερομηνία:</label><input type="text" id="datepicker-from"><label for="datepicker-to">Τελική ημερομηνία:</label><input type="text" id="datepicker-to">
+            </div>
+          </div>
+        </div>
         <button id="button">Σύγκριση τιμολογίων</button>
       </div>
       <div id="results">
