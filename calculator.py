@@ -238,22 +238,40 @@ class Calculator:
       if duration < sum:
         return tiered_fee,sum-duration
 
+  def can_calculate_cost_for_call(self, row):
+    """ Decides if we can calculate the cost for the specified call. """
+
+    return row['call_category'] in ('local','long_distance','mobile')
   def calculate_overview(self, rows):
     """ Calculate an overview based on the available data for analysis. """
 
     overview = {
       'count_calls': len(rows),
-      'cost': {
-        'local': 0,
-        'long_distance': 0,
-        'mobile': 0,
-        'other': 0,
+      'local': {
+        'cost': 0,
+        'duration': 0,
+        'count': 0,
       },
-      'duration': {
-        'local': 0,
-        'long_distance': 0,
-        'mobile': 0,
-        'other': 0,
+      'long_distance': {
+        'cost': 0,
+        'duration': 0,
+        'count': 0,
+      },
+      'mobile': {
+        'cost': 0,
+        'duration': 0,
+        'count': 0,
+      },
+      'other': {
+        'cost': 0,
+        'duration': 0,
+        'count': 0,
+      },
+      'skipped': {
+        'cost': 0,
+        'duration': 0,
+        'count': 0,
+        'list': [],
       },
       'first_call_timestamp': 0,
       'last_call_timestamp': 0,
@@ -264,16 +282,28 @@ class Calculator:
     import __builtin__
     for row in rows:
       call_category = row['call_category']
-      if call_category is None:
+      if not self.can_calculate_cost_for_call(row):
         call_category = 'other'
-      overview['cost'][call_category] += decimal.Decimal(row['cost'])
-      overview['duration'][call_category] += int(row['duration'])
+
+      overview[call_category]['cost'] += decimal.Decimal(row['cost'])
+      overview[call_category]['duration'] += int(row['duration'])
+      overview[call_category]['count'] += 1
       datetime_ = int(row['datetime'])
       min_time = __builtin__.min(min_time, datetime_)
       max_time = __builtin__.max(max_time, datetime_)
     overview['first_call_timestamp'] = min_time
     overview['last_call_timestamp'] = max_time
     overview['count_days'] = (datetime.datetime.fromtimestamp(max_time) - datetime.datetime.fromtimestamp(min_time)).days+1
+
+    skipped = []
+    for row in rows:
+      if not self.can_calculate_cost_for_call(row):
+        skipped.append(row)
+
+    overview['skipped']['cost'] = sum(decimal.Decimal(row['cost']) for row in skipped)
+    overview['skipped']['duration'] = sum(decimal.Decimal(row['duration']) for row in skipped)
+    overview['skipped']['count'] = len(skipped)
+    overview['skipped']['list'] = [row['callee'] for row in skipped]
 
     return overview
 
@@ -296,21 +326,11 @@ class Calculator:
 
     overview = self.calculate_overview(rows)
 
-    skipped = []
-    for row in rows:
-      if row['call_category'] is None:
-        skipped.append(row)
-
-    overview['skipped'] = {
-      'list': [row['callee'] for row in skipped],
-      'total_cost': sum(decimal.Decimal(row['cost']) for row in skipped),
-    }
-
     ret = []
     for conf in self.products:
       self.begin(conf)
       for row in rows:
-        if row['call_category'] is not None:
+        if self.can_calculate_cost_for_call(row):
           cost = self.get_call_cost(row)
       results = self.end()
       line = (conf,self.companies[self.configurations[conf]['company']],results)
