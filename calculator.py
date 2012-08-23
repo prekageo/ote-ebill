@@ -79,7 +79,7 @@ class Calculator:
     """ Read the JSON configuration and store it. """
 
     with open(os.path.join(os.path.dirname(__file__), 'calculator_conf.js'),'r') as f:
-      self.data = json.load(f, parse_float=decimal.Decimal)
+      self.data = json.load(f)
 
   def load_configuration(self):
     """ Store data from the loaded configuration into respective fields. """
@@ -99,7 +99,7 @@ class Calculator:
     if len(custom) == 0:
       return
 
-    data = json.loads(custom, parse_float=decimal.Decimal)
+    data = json.loads(custom)
 
     custom_companies = data.get('companies', None)
     custom_configurations = data.get('configurations', None)
@@ -178,7 +178,7 @@ class Calculator:
           if isinstance(dest[k],basestring) and dest[k].startswith('+'):
             dest[k] = '+%s' % (decimal.Decimal(dest[k][1:]) + decimal.Decimal(v[1:]))
           else:
-            dest[k] += decimal.Decimal(v[1:])
+            dest[k] += float(v[1:])
         else:
           dest[k] = v
 
@@ -199,20 +199,20 @@ class Calculator:
         self.free[f]['secs']=self.free[f]['mins']*60
     categories = self.conf['categories']
     for category in categories:
-      self.costs[category] = decimal.Decimal(0)
+      self.costs[category] = 0
 
   def end(self):
     """ Return the total cost for the calls included in the calculation. """
 
-    q = decimal.Decimal('.0001')
     zero = decimal.Decimal(0)
 
     days = (self.max_time-self.min_time).days+1
+    for key in self.costs:
+      self.costs[key] = decimal.Decimal(self.costs[key])
     self.costs['time_based_charges'] = reduce(lambda x, y: x+self.costs[y], self.costs, zero)
-    self.costs['monthly_charges'] = self.conf['monthly_charges'] * days/30
+    self.costs['monthly_charges'] = decimal.Decimal(self.conf['monthly_charges']) * days/30
     self.costs['total'] = self.costs['time_based_charges'] + self.costs['monthly_charges']
-
-    self.costs['monthly_charges'] = self.costs['monthly_charges'].quantize(q)
+    
     return self.costs
 
   def get_call_cost(self, row):
@@ -223,7 +223,7 @@ class Calculator:
     self.max_time = max(self.max_time, time)
     duration = int(row['duration'])
     duration_left = duration
-    cost = decimal.Decimal(0)
+    cost = 0
 
     category_name = row['call_category']
     category = self.conf['categories'][category_name]
@@ -253,7 +253,7 @@ class Calculator:
         duration_left,time = consume(tiered_fee['step']*count)
         cost += tiered_fee['charge']*count
 
-    rounded_cost = cost.quantize(decimal.Decimal('.0001'))
+    rounded_cost = round(cost,4)
     self.costs[category_name] += rounded_cost
     return rounded_cost
 

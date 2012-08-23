@@ -90,21 +90,21 @@ class CalculatorTest(unittest.TestCase):
     def _test(duration, charge, expected):
       c.duration = duration
       conf['charge'] = charge
-      self.assertEqual(expected, self.c.get_call_cost(c))
+      self.assertEqual(float(expected), self.c.get_call_cost(c))
 
     _test(2,3,6)
     _test(1,Decimal('0.0001'),Decimal('0.0001'))
 
     _test(1,Decimal('0.00004999999'),Decimal('0.0000'))
-    _test(1,Decimal('0.00005000000'),Decimal('0.0000'))
+    _test(1,Decimal('0.00005000000'),Decimal('0.0001'))
     _test(1,Decimal('0.00005000001'),Decimal('0.0001'))
 
     _test(10,Decimal('0.01234499999'),Decimal('0.1234'))
-    _test(10,Decimal('0.01234500000'),Decimal('0.1234'))
+    _test(10,Decimal('0.01234500000'),Decimal('0.1235'))
     _test(10,Decimal('0.01234500001'),Decimal('0.1235'))
 
     _test(10,Decimal('0.01235499999'),Decimal('0.1235'))
-    _test(10,Decimal('0.01235500000'),Decimal('0.1236'))
+    _test(10,Decimal('0.01235500000'),Decimal('0.1235'))
     _test(10,Decimal('0.01235500001'),Decimal('0.1236'))
 
   def test_free_min_duration(self):
