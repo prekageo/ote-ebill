@@ -241,8 +241,10 @@ class Calculator:
 
     while duration_left > 0:
       if free['secs'] > 0:
-        duration_left,time = consume(free['step'])
-        self.free[category['use_free']]['secs'] -= free['step']
+        seconds = min(duration_left,free['secs'])
+        seconds = div_round_up(seconds,free['step'])*free['step']
+        duration_left,time = consume(seconds)
+        self.free[category['use_free']]['secs'] -= seconds
       else:
         datetimes,datetime_time = self.choose_time_interval(category['datetime'], time)
         tiered_fee,tier_time = self.choose_tiered_fee(datetimes['tiered_fee'],
