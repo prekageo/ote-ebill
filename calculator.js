@@ -22,7 +22,8 @@ $(function () {
     $("#results").fadeIn(3000);
     var min = $("#datepicker-from").datepicker("getDate").getTime()/1000;
     var max = $("#datepicker-to").datepicker("getDate").getTime()/1000;
-    var datasource = $("#datasource-db")[0].checked ? "D" : null;
+    var datasource = $("#datasource-db")[0].checked ? "D" :
+        $("#datasource-csv")[0].checked ? "C" : null;
     var params = {
       "datasource":datasource,
     };
@@ -30,6 +31,9 @@ $(function () {
       case "D":
         params.min = min;
         params.max = max;
+        break;
+      case "C":
+        params.csv = $("#csv").val();
         break;
     }
     $.getJSON("/calculator/calculate", params, function(data) {

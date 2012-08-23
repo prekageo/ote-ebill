@@ -9,6 +9,9 @@
 # DONE: bundles, e.g. internet+telephony or isdn+telephony or pstn+telephony
 # DONE: addons, e.g. OTE EPILEGMENOI PROORISMOI
 
+# TODO: upload file for csv
+# TODO: csv enter days for calculating monthly charges
+
 from __future__ import with_statement
 import copy
 import datetime
@@ -20,6 +23,21 @@ except ImportError:
     import simplejson as json
 import db
 import cherrypy
+import csv
+import time
+
+class Call():
+  def __init__(self, datetime, duration, call_category, cost, callee):
+    self.d = {
+      'datetime': datetime,
+      'duration': duration,
+      'call_category': call_category,
+      'cost': cost,
+      'callee': callee,
+    }
+
+  def __getitem__(self, key):
+    return self.d[key]
 
 def recursive_decimal_to_string(obj):
   """
@@ -255,6 +273,12 @@ class Calculator:
     rows = [row for row in cursor]
     return rows
 
+  def get_calls_from_csv(self, csv_data):
+    """ Retrieves calls from CSV data. """
+
+    reader = csv.reader(csv_data.splitlines())
+    return [Call(int(time.time()),row[0],row[1],0,'unknown') for row in reader]
+
   def calculate_overview(self, rows):
     """ Calculate an overview based on the available data for analysis. """
 
@@ -321,7 +345,7 @@ class Calculator:
     return overview
 
   @cherrypy.expose
-  def calculate(self,datasource,min,max):
+  def calculate(self,datasource,min=None,max=None,csv=None):
     """
     Calculate the costs for all products by using call data for the time period
     between min and max timestamps. Return a summary of all products sorted by
@@ -330,6 +354,8 @@ class Calculator:
 
     if datasource == 'D':
       rows = self.get_calls_from_db(min,max)
+    elif datasource == 'C':
+      rows = self.get_calls_from_csv(csv)
     else:
       rows = []
 
