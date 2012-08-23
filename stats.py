@@ -117,7 +117,7 @@ class EbillStats:
   @cherrypy.expose
   def gettops(self,min=None,max=None):
     """
-    Returns the top 3 most expensive call groups for a specified period of time.
+    Returns the top 4 most expensive call groups for a specified period of time.
     """
 
     cursor = db.get_db_cursor()
@@ -127,7 +127,7 @@ class EbillStats:
     cursor.execute(db.normalize_sql('''select call_category from calls where '''+
                       db.datetime('datetime')+'''>= ? and '''+
                       db.datetime('datetime')+''' <= ? group by call_category order
-                      by sum(cost) desc limit 3'''), params)
+                      by sum(cost) desc limit 4'''), params)
     tops = [row[0] for row in cursor]
     return json.dumps(tops)
 
