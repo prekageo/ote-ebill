@@ -6,13 +6,13 @@
 }
 #query {
   background: #ccf;
-  padding: 2em;
+  padding: 0 2em 2em;
 }
 #query label {
   margin: 0 1em;
 }
 .title {
-  padding-bottom: 0.2em;
+  padding: 1em 0 0.2em;
   border-bottom: 1px solid #88f;
   margin-bottom: 1em;
   font-size: 1.3em;
@@ -40,28 +40,31 @@
 #results {
   margin-top: 5px;
   background: #ccf;
-  padding: 1em 2em;
+  padding: 0 2em;
   display: none;
 }
-#results table {
+#results table, .table {
   border-collapse: collapse;
 }
-#results td,#results th {
+#results td,#results th, .table td, .table th {
   border: 1px solid #000;
   line-height: 1.5em;
   padding: 0 1em;
 }
-#results th {
+#results th, .table th {
   background: #55b;
   color: #ddd;
 }
-#results td.r {
+#results td.r, .table td.r {
   text-align: right;
 }
 #results .info {
   font-size:0.9em;
   font-style:italic;
   margin-top:1em;
+}
+textarea {
+  font-size:11px;
 }
 .tab {
   display: none;
