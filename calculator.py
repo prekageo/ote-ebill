@@ -242,6 +242,20 @@ class Calculator:
     """ Decides if we can calculate the cost for the specified call. """
 
     return row['call_category'] in ('local','long_distance','mobile')
+
+  def get_calls_from_db(self, min, max):
+    """ Retrieves calls from the database. """
+
+    cursor = db.get_db_cursor()
+    sql = '''select callee,'''+db.datetime('datetime')+''' datetime,
+             duration, cost, call_category from calls where
+             '''+db.datetime('datetime')+''' >= ?
+             and '''+db.datetime('datetime')+''' < ?'''
+    sql = db.normalize_sql(sql)
+    cursor.execute(sql, (str(min),str(max)))
+    rows = [row for row in cursor]
+    return rows
+
   def calculate_overview(self, rows):
     """ Calculate an overview based on the available data for analysis. """
 
@@ -315,14 +329,7 @@ class Calculator:
     total cost.
     """
 
-    cursor = db.get_db_cursor()
-    sql = '''select service, callee, '''+db.datetime('datetime')+''' datetime,
-             duration, seg, cost, call_category from calls where
-             '''+db.datetime('datetime')+''' >= ?
-             and '''+db.datetime('datetime')+''' < ?'''
-    sql = db.normalize_sql(sql)
-    cursor.execute(sql, (str(min),str(max)))
-    rows = [row for row in cursor]
+    rows = self.get_calls_from_db(min,max)
 
     overview = self.calculate_overview(rows)
 
