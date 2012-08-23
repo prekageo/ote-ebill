@@ -262,6 +262,11 @@ class Calculator:
 
     return row['call_category'] in ('local','long_distance','mobile')
 
+  def should_ignore_call(self, call):
+    """ Decides if we should ignore the call due to user supplied filters. """
+
+    return call['call_category'] not in self.call_categories
+
   def get_calls_from_db(self, min, max):
     """ Retrieves calls from the database. """
 
@@ -342,6 +347,8 @@ class Calculator:
       call_category = row['call_category']
       if not self.can_calculate_cost_for_call(row):
         call_category = 'other'
+      elif self.should_ignore_call(row):
+        continue
 
       overview[call_category]['cost'] += decimal.Decimal(row['cost'])
       overview[call_category]['duration'] += int(row['duration'])
@@ -367,7 +374,7 @@ class Calculator:
 
   @cherrypy.expose
   def calculate(self,datasource,min=None,max=None,
-      csv=None,local_count=None,local_duration=None,
+      filter=None,csv=None,local_count=None,local_duration=None,
       long_distance_count=None,long_distance_duration=None,mobile_count=None,
       mobile_duration=None):
     """
@@ -390,12 +397,22 @@ class Calculator:
     if len(rows) == 0:
       return None
 
+    self.call_categories = []
+    if 'L' in filter:
+      self.call_categories.append('local')
+    if 'D' in filter:
+      self.call_categories.append('long_distance')
+    if 'M' in filter:
+      self.call_categories.append('mobile')
+
     overview = self.calculate_overview(rows)
 
     ret = []
     for conf in self.products:
       self.begin(conf)
       for row in rows:
+        if self.should_ignore_call(row):
+          continue
         if self.can_calculate_cost_for_call(row):
           cost = self.get_call_cost(row)
       results = self.end()

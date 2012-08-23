@@ -22,6 +22,10 @@ $(function () {
     $("#results").fadeIn(3000);
     var min = $("#datepicker-from").datepicker("getDate").getTime()/1000;
     var max = $("#datepicker-to").datepicker("getDate").getTime()/1000;
+    var filter = "";
+    filter += $("#filter-local")[0].checked ? "L" : "";
+    filter += $("#filter-long-distance")[0].checked ? "D" : "";
+    filter += $("#filter-mobile")[0].checked ? "M" : "";
     var datasource = $("#datasource-db")[0].checked ? "D" :
         $("#datasource-csv")[0].checked ? "C" :
         $("#datasource-parametric")[0].checked ? "P" : null;
@@ -32,6 +36,7 @@ $(function () {
       case "D":
         params.min = min;
         params.max = max;
+        params.filter = filter;
         break;
       case "C":
         params.csv = $("#csv").val();
