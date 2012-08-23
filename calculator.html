@@ -18,6 +18,7 @@
         <div class="line tab-header">
           <input checked="checked" name="datasource" value="1" id="datasource-db" type="radio"><label for="datasource-db">Βάση δεδομένων</label>
           <input name="datasource" value="2" id="datasource-csv" type="radio"><label for="datasource-csv">Αρχείο CSV</label>
+          <input name="datasource" value="3" id="datasource-parametric" type="radio"><label for="datasource-parametric">Παραμετρικά</label>
         </div>
         <div>
           <div class="tab" style="display:block">
@@ -33,6 +34,30 @@
 30,long_distance</pre>
             </div>
             <div class="line"><textarea id="csv" rows="5" cols="40"></textarea></div>
+          </div>
+          <div class="tab">
+            <table class="table">
+              <tr>
+                <th></th>
+                <th>Πλήθος</th>
+                <th>Διάρκεια (λεπτά)</th>
+              </tr>
+              <tr>
+                <th>Αστικές</th>
+                <td><input type="text" id="local-count"></td>
+                <td><input type="text" id="local-duration"></td>
+              </tr>
+              <tr>
+                <th>Υπεραστικές</th>
+                <td><input type="text" id="long-distance-count"></td>
+                <td><input type="text" id="long-distance-duration"></td>
+              </tr>
+              <tr>
+                <th>Προς κινητά</th>
+                <td><input type="text" id="mobile-count"></td>
+                <td><input type="text" id="mobile-duration"></td>
+              </tr>
+            </table>
           </div>
         </div>
         <button id="button">Σύγκριση τιμολογίων</button>

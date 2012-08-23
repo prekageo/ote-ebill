@@ -23,7 +23,8 @@ $(function () {
     var min = $("#datepicker-from").datepicker("getDate").getTime()/1000;
     var max = $("#datepicker-to").datepicker("getDate").getTime()/1000;
     var datasource = $("#datasource-db")[0].checked ? "D" :
-        $("#datasource-csv")[0].checked ? "C" : null;
+        $("#datasource-csv")[0].checked ? "C" :
+        $("#datasource-parametric")[0].checked ? "P" : null;
     var params = {
       "datasource":datasource,
     };
@@ -34,6 +35,14 @@ $(function () {
         break;
       case "C":
         params.csv = $("#csv").val();
+        break;
+      case "P":
+        params.local_count = $("#local-count").val();
+        params.local_duration = $("#local-duration").val();
+        params.long_distance_count = $("#long-distance-count").val();
+        params.long_distance_duration = $("#long-distance-duration").val();
+        params.mobile_count = $("#mobile-count").val();
+        params.mobile_duration = $("#mobile-duration").val();
         break;
     }
     $.getJSON("/calculator/calculate", params, function(data) {

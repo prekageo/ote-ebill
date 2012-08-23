@@ -11,6 +11,8 @@
 
 # TODO: upload file for csv
 # TODO: csv enter days for calculating monthly charges
+# TODO: parametric enter days for calculating monthly charges
+# TODO: sortable table
 
 from __future__ import with_statement
 import copy
@@ -279,6 +281,25 @@ class Calculator:
     reader = csv.reader(csv_data.splitlines())
     return [Call(int(time.time()),row[0],row[1],0,'unknown') for row in reader]
 
+  def get_calls_from_parameters(self, local, long_distance, mobile):
+    """ Generates calls from parameters. """
+
+    rows = []
+
+    def _generate_calls(params, category):
+      count = int(params[0])
+      if count == 0:
+        return
+      avg = int(params[1])*60/count
+      for i in xrange(count):
+        rows.append(Call(int(time.time()),avg,category,0,'unknown'))
+
+    _generate_calls(local, 'local')
+    _generate_calls(long_distance, 'long_distance')
+    _generate_calls(mobile, 'mobile')
+
+    return rows
+
   def calculate_overview(self, rows):
     """ Calculate an overview based on the available data for analysis. """
 
@@ -345,7 +366,10 @@ class Calculator:
     return overview
 
   @cherrypy.expose
-  def calculate(self,datasource,min=None,max=None,csv=None):
+  def calculate(self,datasource,min=None,max=None,
+      csv=None,local_count=None,local_duration=None,
+      long_distance_count=None,long_distance_duration=None,mobile_count=None,
+      mobile_duration=None):
     """
     Calculate the costs for all products by using call data for the time period
     between min and max timestamps. Return a summary of all products sorted by
@@ -356,6 +380,10 @@ class Calculator:
       rows = self.get_calls_from_db(min,max)
     elif datasource == 'C':
       rows = self.get_calls_from_csv(csv)
+    elif datasource == 'P':
+      rows = self.get_calls_from_parameters((local_count,local_duration),
+          (long_distance_count,long_distance_duration),(mobile_count,
+          mobile_duration))
     else:
       rows = []
 
