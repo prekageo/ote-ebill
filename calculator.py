@@ -48,6 +48,10 @@ def recursive_decimal_to_string(obj):
   else:
     return obj
 
+def div_round_up(x, y):
+  """ Divide and round up. """
+  return (x+y-1)/y
+
 class Calculator:
   """ The calculator component of the web application. """
 
@@ -188,11 +192,14 @@ class Calculator:
         duration_left,time = consume(free['step'])
         self.free[category['use_free']]['secs'] -= free['step']
       else:
-        datetimes = self.choose_time_interval(category['datetime'], time)
-        tiered_fee = self.choose_tiered_fee(datetimes['tiered_fee'],
+        datetimes,datetime_time = self.choose_time_interval(category['datetime'], time)
+        tiered_fee,tier_time = self.choose_tiered_fee(datetimes['tiered_fee'],
           duration - duration_left)
-        duration_left,time = consume(tiered_fee['step'])
-        cost += tiered_fee['charge']
+
+        seconds = min(duration_left,tier_time,datetime_time)
+        count = div_round_up(seconds,tiered_fee['step'])
+        duration_left,time = consume(tiered_fee['step']*count)
+        cost += tiered_fee['charge']*count
 
     rounded_cost = cost.quantize(decimal.Decimal('.0001'))
     self.costs[category_name] += rounded_cost
@@ -201,12 +208,16 @@ class Calculator:
   def choose_time_interval(self, datetimes, time):
     """ Choose the time interval into which the given time falls in. """
 
-    for datetime in datetimes:
-      if datetime['days'][time.weekday()] == ' ':
+    next_hour = datetime.datetime(time.year,time.month,time.day,time.hour)
+    next_hour += datetime.timedelta(hours=1)
+    time_left = (next_hour - time).seconds
+
+    for datetime_ in datetimes:
+      if datetime_['days'][time.weekday()] == ' ':
         continue
-      if datetime['hours'][time.hour] == ' ':
+      if datetime_['hours'][time.hour] == ' ':
         continue
-      return datetime
+      return datetime_,time_left
 
   def choose_tiered_fee(self, tiered_fees, duration):
     """
@@ -218,10 +229,10 @@ class Calculator:
     for tiered_fee in tiered_fees:
       len = tiered_fee['len']
       if len == -1:
-        return tiered_fee
+        return tiered_fee,2**31-1
       sum += len
       if duration < sum:
-        return tiered_fee
+        return tiered_fee,sum-duration
 
   @cherrypy.expose
   def calculate(self,min,max):
