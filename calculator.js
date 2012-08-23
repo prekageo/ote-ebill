@@ -22,7 +22,17 @@ $(function () {
     $("#results").fadeIn(3000);
     var min = $("#datepicker-from").datepicker("getDate").getTime()/1000;
     var max = $("#datepicker-to").datepicker("getDate").getTime()/1000;
-    $.getJSON("/calculator/calculate", {"min":min,"max":max}, function(data) {
+    var datasource = $("#datasource-db")[0].checked ? "D" : null;
+    var params = {
+      "datasource":datasource,
+    };
+    switch (datasource) {
+      case "D":
+        params.min = min;
+        params.max = max;
+        break;
+    }
+    $.getJSON("/calculator/calculate", params, function(data) {
       var text = "<table><tr><th>Σύνολο</th><th>Εταιρεία</th><th>Πρόγραμμα"+
                  "</th><th>Τέλη</th><th>Χρονοχρέωση</th><th>Αστικές</th><th>Υπεραστικές</th><th>"+
                  "Κινητά</th></tr>";

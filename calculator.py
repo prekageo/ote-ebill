@@ -322,14 +322,20 @@ class Calculator:
     return overview
 
   @cherrypy.expose
-  def calculate(self,min,max):
+  def calculate(self,datasource,min,max):
     """
     Calculate the costs for all products by using call data for the time period
     between min and max timestamps. Return a summary of all products sorted by
     total cost.
     """
 
-    rows = self.get_calls_from_db(min,max)
+    if datasource == 'D':
+      rows = self.get_calls_from_db(min,max)
+    else:
+      rows = []
+
+    if len(rows) == 0:
+      return None
 
     overview = self.calculate_overview(rows)
 
