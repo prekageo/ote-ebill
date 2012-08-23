@@ -238,22 +238,8 @@ class Calculator:
       if duration < sum:
         return tiered_fee,sum-duration
 
-  @cherrypy.expose
-  def calculate(self,min,max):
-    """
-    Calculate the costs for all products by using call data for the time period
-    between min and max timestamps. Return a summary of all products sorted by
-    total cost.
-    """
-
-    cursor = db.get_db_cursor()
-    sql = '''select service, callee, '''+db.datetime('datetime')+''' datetime,
-             duration, seg, cost, call_category from calls where
-             '''+db.datetime('datetime')+''' >= ?
-             and '''+db.datetime('datetime')+''' < ?'''
-    sql = db.normalize_sql(sql)
-    cursor.execute(sql, (str(min),str(max)))
-    rows = [row for row in cursor]
+  def calculate_overview(self, rows):
+    """ Calculate an overview based on the available data for analysis. """
 
     overview = {
       'count_calls': len(rows),
@@ -288,6 +274,27 @@ class Calculator:
     overview['first_call_timestamp'] = min_time
     overview['last_call_timestamp'] = max_time
     overview['count_days'] = (datetime.datetime.fromtimestamp(max_time) - datetime.datetime.fromtimestamp(min_time)).days+1
+
+    return overview
+
+  @cherrypy.expose
+  def calculate(self,min,max):
+    """
+    Calculate the costs for all products by using call data for the time period
+    between min and max timestamps. Return a summary of all products sorted by
+    total cost.
+    """
+
+    cursor = db.get_db_cursor()
+    sql = '''select service, callee, '''+db.datetime('datetime')+''' datetime,
+             duration, seg, cost, call_category from calls where
+             '''+db.datetime('datetime')+''' >= ?
+             and '''+db.datetime('datetime')+''' < ?'''
+    sql = db.normalize_sql(sql)
+    cursor.execute(sql, (str(min),str(max)))
+    rows = [row for row in cursor]
+
+    overview = self.calculate_overview(rows)
 
     skipped = []
     for row in rows:
