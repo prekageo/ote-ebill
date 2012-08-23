@@ -9,6 +9,7 @@
 # DONE: bundles, e.g. internet+telephony or isdn+telephony or pstn+telephony
 # DONE: addons, e.g. OTE EPILEGMENOI PROORISMOI
 
+# TODO: upload file for configuration
 # TODO: upload file for csv
 # TODO: csv enter days for calculating monthly charges
 # TODO: parametric enter days for calculating monthly charges
@@ -75,15 +76,43 @@ class Calculator:
   """ The calculator component of the web application. """
 
   def __init__(self):
-    """ Read the JSON configuration and store data into respective fields. """
+    """ Read the JSON configuration and store it. """
 
     with open(os.path.join(os.path.dirname(__file__), 'calculator_conf.js'),'r') as f:
-      data = json.load(f, parse_float=decimal.Decimal)
-    self.companies = data['companies']
-    self.configurations = data['configurations']
-    self.assets = data['assets']
-    self.resolve_dependencies()
-    self.make_products()
+      self.data = json.load(f, parse_float=decimal.Decimal)
+
+  def load_configuration(self):
+    """ Store data from the loaded configuration into respective fields. """
+
+    self.companies = self.data['companies']
+    self.configurations = self.data['configurations']
+    self.assets = self.data['assets']
+
+  def apply_custom_configuration(self, mode, custom):
+    """
+    Apply custom modifications to the configuration. The changes can either be
+    merged (mode == "M") or they can replace (mode == "R") the installed
+    configuration.
+    """
+
+    custom = custom.strip()
+    if len(custom) == 0:
+      return
+
+    data = json.loads(custom, parse_float=decimal.Decimal)
+
+    custom_companies = data.get('companies', None)
+    custom_configurations = data.get('configurations', None)
+    custom_assets = data.get('assets', None)
+
+    if mode == "M":
+      self.merge(self.companies, custom_companies)
+      self.merge(self.configurations, custom_configurations)
+      self.merge(self.assets, custom_assets)
+    elif mode == "R":
+      self.companies = custom_companies
+      self.configurations = custom_configurations
+      self.assets = custom_assets
 
   def resolve_dependencies(self):
     """
@@ -373,7 +402,7 @@ class Calculator:
     return overview
 
   @cherrypy.expose
-  def calculate(self,datasource,min=None,max=None,
+  def calculate(self,datasource,conf_mode,custom_conf,min=None,max=None,
       filter=None,csv=None,local_count=None,local_duration=None,
       long_distance_count=None,long_distance_duration=None,mobile_count=None,
       mobile_duration=None):
@@ -404,6 +433,11 @@ class Calculator:
       self.call_categories.append('long_distance')
     if 'M' in filter:
       self.call_categories.append('mobile')
+
+    self.load_configuration()
+    self.apply_custom_configuration(conf_mode, custom_conf)
+    self.resolve_dependencies()
+    self.make_products()
 
     overview = self.calculate_overview(rows)
 

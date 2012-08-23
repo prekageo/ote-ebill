@@ -26,11 +26,15 @@ $(function () {
     filter += $("#filter-local")[0].checked ? "L" : "";
     filter += $("#filter-long-distance")[0].checked ? "D" : "";
     filter += $("#filter-mobile")[0].checked ? "M" : "";
+    var conf_mode = $("#conf-merge")[0].checked ? "M" : "R";
+    var conf = $("#conf").val();
     var datasource = $("#datasource-db")[0].checked ? "D" :
         $("#datasource-csv")[0].checked ? "C" :
         $("#datasource-parametric")[0].checked ? "P" : null;
     var params = {
       "datasource":datasource,
+      "conf_mode":conf_mode,
+      "custom_conf":conf,
     };
     switch (datasource) {
       case "D":
