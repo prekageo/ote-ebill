@@ -281,7 +281,7 @@ class Call:
       if res is not None:
         return res
 
-    return None
+    return 'special'
 
 def parse_date_time(date_str, time_str):
   """Transform a date and time from string form to a datetime object."""
