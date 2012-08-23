@@ -116,8 +116,13 @@ class Calculator:
     'increase the original value by 1'.
     """
 
+    if changes is None:
+      return
+
     for k,v in changes.iteritems():
       if isinstance(v, dict):
+        if k not in dest:
+          dest[k] = {}
         self.merge(dest[k], v)
       else:
         if k == 'monthly_charges' and isinstance(v,basestring) and \
