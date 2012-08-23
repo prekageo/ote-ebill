@@ -33,6 +33,11 @@ $(function () {
         break;
     }
     $.getJSON("/calculator/calculate", params, function(data) {
+      if (data == null) {
+        $("#overview").html("Δε βρέθηκαν κλήσεις.");
+        $("#placeholder").html("");
+        return;
+      }
       var text = "<table><tr><th>Σύνολο</th><th>Εταιρεία</th><th>Πρόγραμμα"+
                  "</th><th>Τέλη</th><th>Χρονοχρέωση</th><th>Αστικές</th><th>Υπεραστικές</th><th>"+
                  "Κινητά</th></tr>";

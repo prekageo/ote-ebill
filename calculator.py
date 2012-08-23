@@ -5,7 +5,6 @@
 
 # TODO: improve performance
 # TODO: cost is different among various mobile providers
-# TODO: check for no data and return total cost 0
 
 # DONE: bundles, e.g. internet+telephony or isdn+telephony or pstn+telephony
 # DONE: addons, e.g. OTE EPILEGMENOI PROORISMOI
