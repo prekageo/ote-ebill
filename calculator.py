@@ -165,12 +165,11 @@ class Calculator:
   def get_call_cost(self, row):
     """ Calculate and return the cost of the given call. """
 
-    time = datetime.datetime.fromtimestamp(int(row[2]))
+    time = datetime.datetime.fromtimestamp(int(row['datetime']))
     self.min_time = min(self.min_time, time)
     self.max_time = max(self.max_time, time)
-    duration = int(row[3])
+    duration = int(row['duration'])
     duration_left = duration
-    call_group = row[6]
     cost = decimal.Decimal(0)
 
     category_name = row['call_category']
