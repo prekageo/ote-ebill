@@ -52,6 +52,7 @@ $(function () {
         params.long_distance_duration = $("#long-distance-duration").val();
         params.mobile_count = $("#mobile-count").val();
         params.mobile_duration = $("#mobile-duration").val();
+        params.days = $("#days-p").val();
         break;
     }
     $.getJSON("/calculator/calculate", params, function(data) {

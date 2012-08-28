@@ -201,12 +201,15 @@ class Calculator:
     for category in categories:
       self.costs[category] = 0
 
-  def end(self):
+  def end(self, days = None):
     """ Return the total cost for the calls included in the calculation. """
 
     zero = decimal.Decimal(0)
 
-    self.days = (self.max_time-self.min_time).days+1
+    if days is None:
+      self.days = (self.max_time-self.min_time).days+1
+    else:
+      self.days = days
     for key in self.costs:
       self.costs[key] = decimal.Decimal(self.costs[key])
     self.costs['time_based_charges'] = reduce(lambda x, y: x+self.costs[y], self.costs, zero)
@@ -400,9 +403,9 @@ class Calculator:
 
   @cherrypy.expose
   def calculate(self,datasource,conf_mode,custom_conf,min=None,max=None,
-      filter=None,csv=None,local_count=None,local_duration=None,
+      filter='LDM',csv=None,local_count=None,local_duration=None,
       long_distance_count=None,long_distance_duration=None,mobile_count=None,
-      mobile_duration=None):
+      mobile_duration=None,days=None):
     """
     Calculate the costs for all products by using call data for the time period
     between min and max timestamps. Return a summary of all products sorted by
@@ -444,7 +447,9 @@ class Calculator:
           continue
         if self.can_calculate_cost_for_call(row):
           cost = self.get_call_cost(row)
-      results = self.end()
+      if days is not None:
+        days = int(days)
+      results = self.end(days)
       line = (conf,self.companies[self.configurations[conf]['company']],results)
       ret.append(line)
 
