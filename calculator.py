@@ -206,11 +206,11 @@ class Calculator:
 
     zero = decimal.Decimal(0)
 
-    days = (self.max_time-self.min_time).days+1
+    self.days = (self.max_time-self.min_time).days+1
     for key in self.costs:
       self.costs[key] = decimal.Decimal(self.costs[key])
     self.costs['time_based_charges'] = reduce(lambda x, y: x+self.costs[y], self.costs, zero)
-    self.costs['monthly_charges'] = decimal.Decimal(self.conf['monthly_charges']) * days/30
+    self.costs['monthly_charges'] = decimal.Decimal(self.conf['monthly_charges']) * self.days/30
     self.costs['total'] = self.costs['time_based_charges'] + self.costs['monthly_charges']
     
     return self.costs
@@ -371,9 +371,6 @@ class Calculator:
       'last_call_timestamp': 0,
       'count_days': 0,
     }
-    min_time = 2**31-1
-    max_time = 0
-    import __builtin__
     for row in rows:
       call_category = row['call_category']
       if not self.can_calculate_cost_for_call(row):
@@ -385,11 +382,9 @@ class Calculator:
       overview[call_category]['duration'] += int(row['duration'])
       overview[call_category]['count'] += 1
       datetime_ = int(row['datetime'])
-      min_time = __builtin__.min(min_time, datetime_)
-      max_time = __builtin__.max(max_time, datetime_)
-    overview['first_call_timestamp'] = min_time
-    overview['last_call_timestamp'] = max_time
-    overview['count_days'] = (datetime.datetime.fromtimestamp(max_time) - datetime.datetime.fromtimestamp(min_time)).days+1
+    overview['first_call_timestamp'] = time.mktime(self.min_time.timetuple())
+    overview['last_call_timestamp'] = time.mktime(self.max_time.timetuple())
+    overview['count_days'] = self.days
 
     skipped = []
     for row in rows:
@@ -441,8 +436,6 @@ class Calculator:
     self.resolve_dependencies()
     self.make_products()
 
-    overview = self.calculate_overview(rows)
-
     ret = []
     for conf in self.products:
       self.begin(conf)
@@ -454,6 +447,8 @@ class Calculator:
       results = self.end()
       line = (conf,self.companies[self.configurations[conf]['company']],results)
       ret.append(line)
+
+    overview = self.calculate_overview(rows)
 
     ret.sort(key=lambda x:x[2]['total'])
     ret = recursive_decimal_to_string(ret)
