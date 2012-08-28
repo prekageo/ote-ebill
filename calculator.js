@@ -44,6 +44,7 @@ $(function () {
         break;
       case "C":
         params.csv = $("#csv").val();
+        params.days = $("#days-c").val();
         break;
       case "P":
         params.local_count = $("#local-count").val();
