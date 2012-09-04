@@ -24,7 +24,10 @@ try:
     import json
 except ImportError:
     import simplejson as json
-import db
+try:
+  import db
+except ImportError:
+  pass
 import cherrypy
 import csv
 import time
