@@ -1,0 +1,38 @@
+application: ote-ebill
+version: 1
+runtime: python27
+handlers:
+- url: /(.*\.(css|html|gif|png))
+  static_files: \1
+  upload: (.*\.(css|html|gif|png))
+- url: /calculator.js
+  static_files: calculator.js
+  upload: calculator.js
+- url: /calculator_conf_static.js
+  static_files: calculator_conf_static.js
+  upload: calculator_conf_static.js
+- url: /.*
+  script: webapp.application
+api_version: 1
+threadsafe: true
+skip_files:
+- .*\.py[co]
+- .git
+- anonymize.py
+- app.yaml
+- appengine.py
+- calculator_conf_20101128.js
+- calculator_test.py
+- db.py
+- ebill.conf.js
+- ebill.py
+- flot
+- get_deps.sh
+- index.html
+- jqueryui
+- settings.py.template
+- stats.css
+- stats.js
+- stats.py
+- test.py
+- webapp.conf
