@@ -16,6 +16,12 @@ $(function () {
     $(".tab").hide();
     $(".tab").eq(selected_tab).show();
   });
+  if (document.URL.indexOf('appspot') >= 0) {
+    $("#navigation").hide();
+    $("#datasource-db,label[for='datasource-db']").hide();
+    $("#datasource-csv").attr("checked","checked");
+    $("#datasource-csv").change();
+  }
 
   $("#button").click(function() {
     $("#placeholder,#overview").html("<img src=\"images/ajax-loading.gif\">");
