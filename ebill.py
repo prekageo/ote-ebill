@@ -180,6 +180,10 @@ class Call:
     u'ΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'AST',
     u'ΠΡΟΣ ΚΙΝΗΤΑ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'KIN',
     u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'ALD',
+    u'ΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'AST',
+    u'ΥΠΕΡΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'YPE',
+    u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'ALD',
+    u'Υπηρεσίες Πολυμεσικής Πληροφόρησης NEWSPHONE': 'ALK',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
