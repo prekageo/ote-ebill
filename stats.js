@@ -31,6 +31,7 @@ $(function () {
           }
         }
         plot = $.plot($("#placeholder"), data, plot_options);
+        plot = modifyPlot(plot);
       });
       $.getJSON("/stats/costpermonth", {tops:data}, function(data) {
         overview = $.plot($("#overview"), data, overview_options);
@@ -211,3 +212,53 @@ $.plot.plugins.push({
     plot.hooks.processDatapoints.push(tmp);
   }
 });
+
+function modifyPlot(plot) {
+  var oldDrawBarHighlight = plot.drawBarHighlight;
+
+  plot.drawBarHighlight = function(series, point) {
+    oldDrawBarHighlight(series, point);
+    plot.drawBar(point[0], 999, 0, 0, series.bars.barWidth, 0, function () { return "rgba(0,0,0,0.1)"; }, series.xaxis, series.yaxis, plot.getOctx(), series.bars.horizontal);
+  }
+
+  plot.findNearbyItem = function(mouseX, mouseY, seriesFilter) {
+    var series = plot.getData(), item = null, i, j;
+
+    for (i = 0; i < series.length; ++i) {
+      var s = series[i],
+          axisx = s.xaxis,
+          axisy = s.yaxis,
+          points = s.datapoints.points,
+          ps = s.datapoints.pointsize,
+          mx = axisx.c2p(mouseX), // precompute some stuff to make the loop faster
+          my = axisy.c2p(mouseY),
+          barLeft = s.bars.align == "left" ? 0 : -s.bars.barWidth/2,
+          barRight = barLeft + s.bars.barWidth;
+
+      for (j = 0; j < points.length; j += ps) {
+        var x = points[j], y = points[j + 1], b = points[j + 2];
+        if (x == null)
+          continue;
+
+        // for a bar graph, the cursor must be inside the bar
+        if (mx >= x + barLeft && mx <= x + barRight)
+          item = [i, j / ps];
+      }
+    }
+
+    if (item) {
+      i = item[0];
+      j = item[1];
+      ps = series[i].datapoints.pointsize;
+
+      return { datapoint: series[i].datapoints.points.slice(j * ps, (j + 1) * ps),
+               dataIndex: j,
+               series: series[i],
+               seriesIndex: i };
+    }
+
+    return null;
+  }
+
+  return plot;
+}
