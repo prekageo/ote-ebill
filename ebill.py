@@ -7,7 +7,7 @@ SQLite database named ote-ebill.db. Be sure the set the settings first in the
 corresponding file.
 
 Usage:
-./ebill.py "A 123456789#DD/MM/YYYY"
+./ebill.py
 """
 
 import codecs
@@ -99,6 +99,16 @@ def assert_by_id(node, id, tag=None, attribs={}):
   except KeyError:
     raise Exception('Node with ID "%s" not found in document.' % id)
 
+def assert_by_xpath(node, xpath):
+  """
+  Asserts the presence of at least one node that matches the given XPath.
+  node -- the root node of the HTML document
+  xpath -- the XPath expression
+  """
+
+  if len(node.xpath(xpath)) == 0:
+    raise Exception('XPath "%s" not found in document.' % xpath)
+
 def validate_0(html_str):
   """Validate the login page."""
 
@@ -124,24 +134,18 @@ def validate_3(html_str):
   root = html.fromstring(html_str)
   assert_by_id(root,'results','td')
 
-def get_calls_in_html(inv_info):
-  """
-  Executes the WebPlayer to receive the HTML page of the calls for a specified
-  invoice.
-  inv_info -- the invoice ID
-  """
+def validate_4(html_str):
+  """ Validate the invoices page. """
+
+  root = html.fromstring(html_str)
+  assert_by_xpath(root,'//select[@id="inv_info"]')
+
+def login(web_player):
+  """ Login to the web application. """
 
   DATA1 = {'IDToken2':settings.password,'IDToken1':settings.username,
     'realm':'oteportal','goto':'https://ebill.ote.gr/wwwote/index.jsp'}
-  DATA3 = {
-    'cust_code':settings.cust_code,
-    'ebaction':'8',
-    'inv_info':inv_info,
-    'phones':settings.phones,
-    'phone_no_info':codecs.getencoder('iso-8859-7')(settings.phone_no_info)[0],
-  }
 
-  web_player = WebPlayer(debug=False)
   base_path = 'https://ebill.ote.gr/wwwote/'
   web_player.visit('%sindex.jsp' % base_path,validate_0)
   response = web_player.visit('https://am.ote.gr/amserver/UI/Login',validate_1,DATA1)
@@ -151,6 +155,36 @@ def get_calls_in_html(inv_info):
     'j_password':root.xpath('//*[@id="form-password"]')[0].value
   }
   web_player.visit('%sj_security_check' % base_path,validate_2,DATA2)
+
+def get_invoices(web_player):
+  """ Get all invoices from the web application. """
+
+  DATA = {
+    'cust_code':settings.cust_code,
+    'ebaction':'7',
+    'ccname':'',
+  }
+  base_path = 'https://ebill.ote.gr/wwwote/'
+  response = web_player.visit('%sController' % base_path,validate_4,DATA)
+  root = html.fromstring(response)
+  options = root.xpath('//select[@id="inv_info"]/option')
+  return [option.attrib.get('value') for option in options]
+
+def get_calls_in_html(web_player, inv_info):
+  """
+  Executes the WebPlayer to receive the HTML page of the calls for a specified
+  invoice.
+  inv_info -- the invoice ID
+  """
+
+  DATA3 = {
+    'cust_code':settings.cust_code,
+    'ebaction':'8',
+    'inv_info':inv_info,
+    'phones':settings.phones,
+    'phone_no_info':codecs.getencoder('iso-8859-7')(settings.phone_no_info)[0],
+  }
+  base_path = 'https://ebill.ote.gr/wwwote/'
   return web_player.visit('%sController' % base_path,validate_3,DATA3)
 
 def adapt_timedelta(timedelta):
@@ -408,14 +442,18 @@ def main():
     Call.run_category_rules(conn)
     return
 
-  if len(args) < 1:
-    raise Exception('Insufficient number of command line arguments.')
-  inv_info = args[0]
-  print 'Gettings records for invoice "%s"...' % inv_info
-  html_str = get_calls_in_html(inv_info)
-  saved,unsaved = store_calls(settings.database_path,html_str)
-  print 'Total records: %d, Saved: %d, Duplicates: %d' % (saved+unsaved,saved,
-      unsaved)
+  web_player = WebPlayer(debug = False)
+  print 'Login...'
+  login(web_player)
+  print 'Listing invoices...'
+  invoices = get_invoices(web_player)
+  print 'Found invoices: %r' % invoices
+  for inv_info in invoices:
+    print 'Getting records for invoice "%s"...' % inv_info
+    html_str = get_calls_in_html(web_player, inv_info)
+    saved,unsaved = store_calls(settings.database_path,html_str)
+    print 'Total records: %d, Saved: %d, Duplicates: %d' % (saved+unsaved,saved,
+        unsaved)
 
 if __name__ == '__main__':
   main()
