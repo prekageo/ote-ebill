@@ -113,8 +113,7 @@ def validate_0(html_str):
   """Validate the login page."""
 
   root = html.fromstring(html_str)
-  assert_by_id(root,'IDToken1','input',{'type':'text'})
-  assert_by_id(root,'IDToken2','input',{'type':'password'})
+  assert_by_xpath(root,'//div[@class="signedin"]')
 
 def validate_1(html_str):
   """Validate the intermediate login page."""
@@ -126,7 +125,7 @@ def validate_2(html_str):
   """Validate the main page after login."""
 
   root = html.fromstring(html_str)
-  assert_by_id(root,'logout','input',{'type':'button'})
+  assert_by_xpath(root,'//form[@name="forwardfrm"]')
 
 def validate_3(html_str):
   """Validate the results page."""
@@ -146,9 +145,9 @@ def login(web_player):
   DATA1 = {'IDToken2':settings.password,'IDToken1':settings.username,
     'realm':'oteportal','goto':'https://ebill.ote.gr/wwwote/index.jsp'}
 
-  base_path = 'https://ebill.ote.gr/wwwote/'
-  web_player.visit('%sindex.jsp' % base_path,validate_0)
-  response = web_player.visit('https://am.ote.gr/amserver/UI/Login',validate_1,DATA1)
+  base_path = 'https://myebill.ote.gr/wwwote/'
+  web_player.visit('https://idmextsso.ote.gr/opensso/UI/Login?realm=oteportal&goto=https://www.ote.gr/web/guest/consumer',validate_0,DATA1)
+  response = web_player.visit('%s'%base_path,validate_1)
   root = html.fromstring(response)
   DATA2 = {
     'j_username':settings.username,
@@ -164,7 +163,7 @@ def get_invoices(web_player):
     'ebaction':'7',
     'ccname':'',
   }
-  base_path = 'https://ebill.ote.gr/wwwote/'
+  base_path = 'https://myebill.ote.gr/wwwote/'
   response = web_player.visit('%sController' % base_path,validate_4,DATA)
   root = html.fromstring(response)
   options = root.xpath('//select[@id="inv_info"]/option')
@@ -184,7 +183,7 @@ def get_calls_in_html(web_player, inv_info):
     'phones':settings.phones,
     'phone_no_info':codecs.getencoder('iso-8859-7')(settings.phone_no_info)[0],
   }
-  base_path = 'https://ebill.ote.gr/wwwote/'
+  base_path = 'https://myebill.ote.gr/wwwote/'
   return web_player.visit('%sController' % base_path,validate_3,DATA3)
 
 def adapt_timedelta(timedelta):
