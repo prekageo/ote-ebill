@@ -212,6 +212,7 @@ class Call:
     u'Χρήση Ψηφιακών Ευκολιών': 'PSE',
     u'Υπηρεσίες Πολυμεσικής Πληροφόρησης MEDIATEL': 'ALK',
     u'ΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'AST',
+    u'ΥΠΕΡΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'YPE',
     u'ΠΡΟΣ ΚΙΝΗΤΑ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'KIN',
     u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 2 ECONOMY 240': 'ALD',
     u'ΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'AST',
