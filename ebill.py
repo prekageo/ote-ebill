@@ -219,6 +219,7 @@ class Call:
     u'ΥΠΕΡΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'YPE',
     u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'ALD',
     u'Υπηρεσίες Πολυμεσικής Πληροφόρησης NEWSPHONE': 'ALK',
+    u'Υπηρεσίες Πολυμεσικής Πληροφόρησης Ολιγοψήφιος 14784': 'ALK',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
