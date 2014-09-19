@@ -9,11 +9,17 @@ if settings.database_driver == 'sqlite3':
 elif settings.database_driver == 'mysql':
   import MySQLdb
 
+conn = None
+
 def get_db_conn():
   """ Returns a connection to the database. """
 
+  global conn
+  if conn is not None:
+    return conn
+
   if settings.database_driver == 'sqlite3':
-    conn = sqlite3.connect(settings.database_path)
+    conn = sqlite3.connect(settings.database_path, check_same_thread = False)
     conn.row_factory = sqlite3.Row
     return conn
   elif settings.database_driver == 'mysql':
