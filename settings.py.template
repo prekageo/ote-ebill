@@ -12,3 +12,5 @@ password = 'password'
 cust_code = 'cust_code'
 phone_no_info = u'phone#1#Βασική Πρόσβαση ISDN (BRA)-ISDN'
 phones = 'phone'
+
+vat = 23

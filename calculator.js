@@ -103,6 +103,7 @@ $(function () {
       text += "<tr><th>Κλήσεις που αγνοήθηκαν</th><td>"+category_line(data.overview.skipped)+", λίστα: "+data.overview.skipped.list+"</td></tr>";
       text += "</table>";
       $("#overview").html(text);
+      $("#vat").html(data.vat);
     });
     return false;
   });

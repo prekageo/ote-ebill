@@ -31,6 +31,7 @@ except ImportError:
 import cherrypy
 import csv
 import time
+import settings
 
 class Call():
   def __init__(self, datetime, duration, call_category, cost, callee):
@@ -219,6 +220,11 @@ class Calculator:
     self.costs['monthly_charges'] = decimal.Decimal(self.conf['monthly_charges']) * self.days/30
     self.costs['total'] = self.costs['time_based_charges'] + self.costs['monthly_charges']
     
+    # add VAT
+    vat = 1 + decimal.Decimal(settings.vat) / 100
+    for key in self.costs:
+      self.costs[key] = vat * self.costs[key]
+
     return self.costs
 
   def get_call_cost(self, row):
@@ -402,6 +408,13 @@ class Calculator:
     overview['skipped']['count'] = len(skipped)
     overview['skipped']['list'] = [row['callee'] for row in skipped]
 
+    # VAT
+    vat = 1 + decimal.Decimal(settings.vat) / 100
+    for key in overview:
+      if not isinstance(overview[key], dict):
+        continue
+      overview[key]['cost'] = vat * overview[key]['cost']
+
     return overview
 
   @cherrypy.expose
@@ -465,5 +478,6 @@ class Calculator:
     ret = {
       'invoices': ret,
       'overview': overview,
+      'vat': settings.vat,
     }
     return json.dumps(ret)
