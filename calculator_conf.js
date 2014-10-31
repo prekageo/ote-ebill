@@ -11,39 +11,14 @@
         "cosmoline":"images/cosmoline.png"
     },
     "configurations":{
-        "Forthnet 2play Economy - 1ος χρόνος":{"company":"forthnet","assets":["forthnet-2play-economy-1st-year"]},
-        "Forthnet 2play Economy":{"company":"forthnet","assets":["forthnet-2play-economy"]},
-        "Forthnet ADSL - 1ος χρόνος":{"company":"forthnet","assets":["forthnet-adsl-1st-year"]},
-        "Forthnet ADSL":{"company":"forthnet","assets":["forthnet-adsl"]},
-        "hol double-play lite ":{"company":"hol","assets":["hol-double-play-lite"]},
-        "Cyta 2play 4 Mbps":{"company":"cyta","assets":["cyta-2play-4mbps"]},
-        "Cyta 2play 4 Mbps + Σταθερά Ελλάδος 480' + Κινητά 105'":{"company":"cyta","assets":["cyta-2play-4mbps","cyta-stathera-480","cyta-kinhta-105"]},
-        "On Double Play":{"company":"ontelecoms","assets":["on-double-play"]},
-        "On Double Play 8 GR":{"company":"ontelecoms","assets":["on-double-play-8-gr"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Κινητά 60":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-kinhta-60"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Economy 165 - 4 μήνες":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-economy-165-4months"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Απεριόριστα Plus - 6 μήνες":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-aperiorista-plus-6months"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Απεριόριστα - 6 μήνες":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-aperiorista-6months"]},
-        "ΟΤΕ ISDN + OTE Double Play 2 Απεριόριστα Plus - 6 μήνες":{"company":"ote","assets":["ote-isdn","ote-dp2-aperiorista-plus-6months"]},
-        "ΟΤΕ PSTN + ΟΤΕ Double Play 2 Απεριόριστα - 6 μήνες":{"company":"ote","assets":["ote-pstn","ote-dp2-aperiorista-6months"]},
-        "ΟΤΕ ISDN + ΟΤΕ Double Play 2 Απεριόριστα - 6 μήνες":{"company":"ote","assets":["ote-isdn","ote-dp2-aperiorista-6months"]},
-        "ΟΤΕ ISDN + ΟΤΕ Double Play 2 Economy - 6 μήνες":{"company":"ote","assets":["ote-isdn","ote-dp2-economy-6months"]},
-        "ΟΤΕ ISDN + OTE Double Play 2 Basic - 6 μήνες":{"company":"ote","assets":["ote-isdn","ote-dp2-basic-6months"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Economy 165":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-economy-165"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Απεριόριστα Plus":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-aperiorista-plus"]},
-        "ΟΤΕ ISDN + ConnX Δίοδος 2Mbps + ΟΤΕ Απεριόριστα":{"company":"ote","assets":["ote-isdn","connx-diodos-2mbps","ote-aperiorista"]},
-        "ΟΤΕ ISDN + OTE Double Play 2 Απεριόριστα Plus":{"company":"ote","assets":["ote-isdn","ote-dp2-aperiorista-plus"]},
+        "ΟΤΕ PSTN + ΟΤΕ ADSL 4":{"company":"ote","assets":["ote-pstn","ote-adsl-4"]},
+        "ΟΤΕ PSTN Double Play 24 για Φοιτητές":{"company":"ote","assets":["ote-pstn","ote-dp24-foithtes"]},
         "ΟΤΕ PSTN + ΟΤΕ Double Play 2 Απεριόριστα":{"company":"ote","assets":["ote-pstn","ote-dp2-aperiorista"]},
         "ΟΤΕ ISDN + ΟΤΕ Double Play 2 Απεριόριστα":{"company":"ote","assets":["ote-isdn","ote-dp2-aperiorista"]},
-        "ΟΤΕ ISDN + ΟΤΕ Double Play 2 Economy":{"company":"ote","assets":["ote-isdn","ote-dp2-economy"]},
-        "ΟΤΕ ISDN + OTE Double Play 2 Basic":{"company":"ote","assets":["ote-isdn","ote-dp2-basic"]},
-        "WIND Double Play S":{"company":"tellas","assets":["wind-double-play-s"]},
-        "WIND Double Play M":{"company":"tellas","assets":["wind-double-play-m"]},
-        "WIND Double Play L":{"company":"tellas","assets":["wind-double-play-l"]},
-        "WIND Double Play S - 1ος χρόνος":{"company":"tellas","assets":["wind-double-play-s-1st-year"]},
-        "WIND Double Play M - 1ος χρόνος":{"company":"tellas","assets":["wind-double-play-m-1st-year"]},
-        "WIND Double Play L - 1ος χρόνος":{"company":"tellas","assets":["wind-double-play-l-1st-year"]}
+        "ΟΤΕ PSTN Double Play 4 Απεριόριστα":{"company":"ote","assets":["ote-pstn","ote-dp4-aperiorista"]},
+        "ΟΤΕ PSTN Double Play 4 Απεριόριστα Plus":{"company":"ote","assets":["ote-pstn","ote-dp4-aperiorista-plus"]},
+        "ΟΤΕ PSTN Double Play 4 Απεριόριστα - 18 μήνες":{"company":"ote","assets":["ote-pstn","ote-dp4-aperiorista-18months"]},
+        "ΟΤΕ PSTN Double Play 4 Απεριόριστα Plus - 18 μήνες":{"company":"ote","assets":["ote-pstn","ote-dp4-aperiorista-plus-18months"]}
     },
     "assets":{
         "ote-pstn":{
@@ -56,23 +31,20 @@
                 "local":{
                     "use_free":"local_and_long_distance",
                     "datetime":[
-                        {"days":"MTWTF  ","hours":"        890123456789    ","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000433}]},
-                        {"days":"MTWTF  ","hours":"01234567            0123","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000417}]},
-                        {"days":"     S ","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000417}]},
-                        {"days":"      S","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000400}]}
+                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
                     ]
                 },
                 "long_distance":{
                     "use_free":"local_and_long_distance",
                     "datetime":[
-                        {"days":"MTWTFS ","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.055},{"len":-1,"step":1,"charge":0.000917}]},
-                        {"days":"      S","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000400}]}
+                        {"days":"MTWTFS ","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.055}]},
+                        {"days":"      S","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
                     ]
                 },
                 "mobile":{
                     "use_free":"mobile",
                     "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.001223}]}
+                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.045}]}
                     ]
                 }
             }
@@ -83,218 +55,57 @@
                 "monthly_charges":"+3.5"
             }
         },
-        "ote-stathera-120":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+3",
-                "free":{"local_and_long_distance":{"mins":120,"min_duration":0,"step":60}}
-            }
-        },
-        "ote-stathera-240":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+5.84",
-                "free":{"local_and_long_distance":{"mins":240,"min_duration":0,"step":60}}
-            }
-        },
-        "ote-stathera-480":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+11.597",
-                "free":{"local_and_long_distance":{"mins":480,"min_duration":0,"step":60}}
-            }
-        },
-        "ote-kinhta-30":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+2.605",
-                "free":{"mobile":{"mins":30,"min_duration":30,"step":1}}
-            }
-        },
-        "ote-kinhta-60":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+4.228",
-                "free":{"mobile":{"mins":60,"min_duration":30,"step":1}}
-            }
-        },
-        "ote-kinhta-120":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+9.664",
-                "free":{"mobile":{"mins":120,"min_duration":30,"step":1}}
-            }
-        },
-        "ote-kinhta-240":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+18.487",
-                "free":{"mobile":{"mins":240,"min_duration":30,"step":1}}
-            }
-        },
-        "ote-kinhta-480":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+35.714",
-                "free":{"mobile":{"mins":480,"min_duration":30,"step":1}}
-            }
-        },
-        "ote-stathera-kinhta-180":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+3.852",
-                "free":{
-                    "local_and_long_distance":{"mins":160,"min_duration":0,"step":60},
-                    "mobile":{"mins":20,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-stathera-kinhta-300":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+7.03",
-                "free":{
-                    "local_and_long_distance":{"mins":250,"min_duration":0,"step":60},
-                    "mobile":{"mins":50,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-olh-mera-60-kinhta":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+12.4",
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
-                    "mobile":{"mins":60,"min_duration":0,"step":1}
-                }
-            }
-        },
-        "ote-economy-165-4months":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+2.966",
-                "free":{
-                    "local_and_long_distance":{"mins":150,"min_duration":0,"step":60},
-                    "mobile":{"mins":15,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.026}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-economy-165":{
-            "copy_of":"ote-economy-165-4months",
-            "changes":{
-                "monthly_charges":"+0.886"
-            }
-        },
-        "ote-aperiorista-plus-6months":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+7.03",
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
-                    "mobile":{"mins":60,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.08}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-aperiorista-plus":{
-            "copy_of":"ote-aperiorista-plus-6months",
-            "changes":{
-                "monthly_charges":"+3.25"
-            }
-        },
-        "ote-aperiorista-6months":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+3.779",
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.08}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-aperiorista":{
-            "copy_of":"ote-aperiorista-6months",
-            "changes":{
-                "monthly_charges":"+3.252"
-            }
-        },
-        "ote-dp2-aperiorista-plus-6months":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+12.722",
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
-                    "mobile":{"mins":60,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.08}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-dp2-aperiorista-plus":{
-            "copy_of":"ote-dp2-aperiorista-plus-6months",
-            "changes":{
-                "monthly_charges":"+4.065"
-            }
-        },
         "ote-dp2-aperiorista-6months":{
             "addon_to":["ote-pstn","ote-isdn"],
             "changes":{
                 "monthly_charges":"+9.47",
                 "free":{
                     "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}
+                },
+                "categories":{
+                    "mobile":{
+                        "datetime":[
+                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.08}]}
+                        ]
+                    }
+                }
+            }
+        },
+        "ote-dp4-aperiorista":{
+            "copy_of":"ote-dp4-aperiorista-18months",
+            "changes":{
+                "monthly_charges":"+1.626"
+            }
+        },
+        "ote-dp4-aperiorista-plus":{
+            "copy_of":"ote-dp4-aperiorista-plus-18months",
+            "changes":{
+                "monthly_charges":"+1.626"
+            }
+        },
+        "ote-dp4-aperiorista-18months":{
+            "addon_to":["ote-pstn","ote-isdn"],
+            "changes":{
+                "monthly_charges":"+12.722",
+                "free":{
+                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
+                    "mobile":{"mins":30,"min_duration":0,"step":60}
+                },
+                "categories":{
+                    "mobile":{
+                        "datetime":[
+                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.08}]}
+                        ]
+                    }
+                }
+            }
+        },
+        "ote-dp4-aperiorista-plus-18months":{
+            "copy_of":"ote-dp4-aperiorista-18months",
+            "changes":{
+                "monthly_charges":"+3.252",
+                "free":{
+                    "mobile":{"mins":150,"min_duration":0,"step":60}
                 }
             }
         },
@@ -304,675 +115,16 @@
                 "monthly_charges":"+4.065"
             }
         },
-        "ote-dp2-economy-6months":{
+        "ote-adsl-4":{
             "addon_to":["ote-pstn","ote-isdn"],
             "changes":{
-                "monthly_charges":"+5.405",
-                "free":{
-                    "local_and_long_distance":{"mins":210,"min_duration":0,"step":60},
-                    "mobile":{"mins":30,"min_duration":0,"step":60}
-                },
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.035}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.035}]}
-                        ]
-                    },
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.08}]}
-                        ]
-                    }
-                }
+                "monthly_charges":"+14.276"
             }
         },
-        "ote-dp2-economy":{
-            "copy_of":"ote-dp2-economy-6months",
-            "changes":{
-                "monthly_charges":"+4.065"
-            }
-        },
-        "ote-dp2-basic-6months":{
+        "ote-dp24-foithtes":{
             "addon_to":["ote-pstn","ote-isdn"],
             "changes":{
-                "monthly_charges":"+8.047",
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.035}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.035}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "ote-dp2-basic":{
-            "copy_of":"ote-dp2-basic-6months",
-            "changes":{
-                "monthly_charges":"+5.821"
-            }
-        },
-        "ote-brady-sk":{
-            "addon_to":["ote-pstn","ote-isdn"],
-            "changes":{
-                "monthly_charges":"+6.555",
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTF  ","hours":"        890123456789    ","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000433}]},
-                            {"days":"MTWTF  ","hours":"01234567            0123","tiered_fee":[{"len":-1,"step":60,"charge":0}]},
-                            {"days":"     SS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTF  ","hours":"        890123456789    ","tiered_fee":[{"len":120,"step":60,"charge":0.026},{"len":-1,"step":1,"charge":0.000433}]},
-                            {"days":"MTWTF  ","hours":"01234567            0123","tiered_fee":[{"len":-1,"step":60,"charge":0}]},
-                            {"days":"     SS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "connx-diodos-2mbps":{
-            "addon_to":["ote-pstn","ote-isdn","cosmoline-ana-klhsh","cosmoline-basiko","cosmoline-basic-200","cosmoline-stathera-kinhta-100","cosmoline-stathera-kinhta-200","cosmoline-stathera-kinhta-300","cosmoline-aperiorista-stathera","cosmoline-stathera-400"],
-            "changes":{
-                "monthly_charges":"+10"
-            }
-        },
-        "cyta-2play-4mbps":{
-            "monthly_charges":13.008,
-            "free":{
-              "local_and_long_distance":{"secs":0,"min_duration":0,"step":0},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":45,"charge":0.017683}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":45,"charge":0.017683}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":45,"charge":0.103659}]}
-                    ]
-                }
-            }
-        },
-        "cyta-stathera-200":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+2.439",
-                "free":{"local_and_long_distance":{"mins":200,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-stathera-360":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+4.065",
-                "free":{"local_and_long_distance":{"mins":360,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-stathera-480":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+5.691",
-                "free":{"local_and_long_distance":{"mins":480,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-stathera-aperiorista":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+7.317",
-                "free":{"local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-kinhta-25":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+2.439",
-                "free":{"mobile":{"mins":25,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-kinhta-45":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+4.065",
-                "free":{"mobile":{"mins":45,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-kinhta-65":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+5.691",
-                "free":{"mobile":{"mins":65,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-kinhta-85":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+7.317",
-                "free":{"mobile":{"mins":85,"min_duration":0,"step":60}}
-            }
-        },
-        "cyta-kinhta-105":{
-            "addon_to":["cyta-2play-4mbps"],
-            "changes":{
-                "monthly_charges":"+8.943",
-                "free":{"mobile":{"mins":105,"min_duration":0,"step":60}}
-            }
-        },
-        "various-unlimited":{
-            "free":{
-                "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
-                "mobile":{"mins":60,"min_duration":0,"step":60}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance"
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance"
-                },
-                "mobile":{
-                    "use_free":"mobile"
-                }
-            }
-        },
-        "forthnet-2play":{
-            "copy_of":"various-unlimited",
-            "changes":{
-                "monthly_charges":33.5285,
-                "categories":{
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.131870}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "forthnet-2play-economy-1st-year":{
-            "monthly_charges":20.244,
-            "free":{
-                "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
-                "mobile":{"mins":30,"min_duration":0,"step":60}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance"
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance"
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":30,"step":30,"charge":0.067737},{"len":-1,"step":1,"charge":0.002258}]}
-                    ]
-                }
-            }
-        },
-        "forthnet-2play-economy":{
-            "monthly_charges":28.374,
-            "free":{
-                "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60},
-                "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance"
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance"
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":30,"step":30,"charge":0.067737},{"len":-1,"step":1,"charge":0.002258}]}
-                    ]
-                }
-            }
-        },
-        "forthnet-adsl-1st-year":{
-            "monthly_charges":14.553,
-            "free":{
-              "local_and_long_distance":{"secs":0,"min_duration":0,"step":0},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.023577},{"len":-1,"step":1,"charge":0.000393}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFS ","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.000734}]},
-                        {"days":"      S","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.023577},{"len":-1,"step":1,"charge":0.000393}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":30,"step":30,"charge":0.067737},{"len":-1,"step":1,"charge":0.002258}]}
-                    ]
-                }
-            }
-        },
-        "forthnet-adsl":{
-            "monthly_charges":20.935,
-            "free":{
-              "local_and_long_distance":{"secs":0,"min_duration":0,"step":0},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.023577},{"len":-1,"step":1,"charge":0.000393}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFS ","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.000734}]},
-                        {"days":"      S","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.023577},{"len":-1,"step":1,"charge":0.000393}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":30,"step":30,"charge":0.067737},{"len":-1,"step":1,"charge":0.002258}]}
-                    ]
-                }
-            }
-        },
-        "hol-double-play":{
-            "copy_of":"various-unlimited",
-            "changes":{
-                "monthly_charges":33.4960,
-                "categories":{
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.138699}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "hol-double-play-lite":{
-            "monthly_charges":20.081,
-            "free":{
-                "local_and_long_distance":{"mins":200,"min_duration":0,"step":60},
-                "mobile":{"mins":20,"min_duration":0,"step":60}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.028618}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.028618}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.143902}]}
-                    ]
-                }
-            }
-        },
-        "netone-value-pack":{
-            "copy_of":"various-unlimited",
-            "changes":{
-                "monthly_charges":31.8699,
-                "free":{
-                    "mobile":{"mins":0,"min_duration":0,"step":0}
-                },
-                "categories":{
-                    "mobile":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":30,"step":30,"charge":0.057561},{"len":-1,"step":1,"charge":0.001919}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "netone-60-kinhta":{
-            "addon_to":"netone-value-pack",
-            "changes":{
-                "monthly_charges":"+5.2033",
-                "free":{
-                    "mobile":{"mins":60,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "on-double-play":{
-            "monthly_charges":16.4472,
-            "free":{
-              "local_and_long_distance":{"secs":0,"min_duration":0,"step":0},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":60,"step":60,"charge":0.023496},{"len":-1,"step":1,"charge":0.000392}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":60,"step":60,"charge":0.023496},{"len":-1,"step":1,"charge":0.000392}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":60,"step":60,"charge":0.137805},{"len":-1,"step":1,"charge":0.002297}]}
-                    ]
-                }
-            }
-        },
-        "on-double-play-plus":{
-            "copy_of":"on-double-play",
-            "changes":{
-                "monthly_charges":20.0813
-            }
-        },
-        "on-double-play-8-gr":{
-            "copy_of":"on-double-play",
-            "changes":{
-                "monthly_charges":21.7561,
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "on-double-play-24-gr":{
-            "copy_of":"on-double-play-8-gr",
-            "changes":{
-                "monthly_charges":24.2927
-            }
-        },
-        "on-double-play-24-unlimited":{
-            "copy_of":"on-double-play-24-gr",
-            "changes":{
-                "monthly_charges":26.8130
-            }
-        },
-        "on-double-play-24-unlimited-plus":{
-            "copy_of":"on-double-play-24-unlimited",
-            "changes":{
-                "monthly_charges":33.5285,
-                "free":{
-                  "mobile":{"mins":60,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "on-220-ethnika":{
-            "addon_to":["on-double-play","on-double-play-plus"],
-            "changes":{
-                "monthly_charges":"+1.6829",
-                "free":{
-                    "local_and_long_distance":{"mins":220,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "on-60-kinhta":{
-            "addon_to":["on-double-play","on-double-play-plus","on-double-play-8-gr","on-double-play-24-gr","on-double-play-24-unlimited"],
-            "changes":{
-                "monthly_charges":"+5.8862",
-                "free":{
-                    "mobile":{"mins":60,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "wind-double-play-s":{
-            "monthly_charges":19.2439,
-            "free":{
-              "local_and_long_distance":{"secs":0,"min_duration":0,"step":0},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.025041}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.044065}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":60,"charge":0.139024}]}
-                    ]
-                }
-            }
-        },
-        "wind-double-play-m":{
-            "copy_of":"wind-double-play-s",
-            "changes":{
-                "monthly_charges":27.6423,
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "wind-double-play-l":{
-            "copy_of":"wind-double-play-m",
-            "changes":{
-                "monthly_charges":33.5285,
-                "free":{
-                    "mobile":{"mins":60,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "wind-double-play-s-1st-year":{
-            "copy_of":"wind-double-play-s",
-            "changes":{
-                "monthly_charges":12.333
-            }
-        },
-        "wind-double-play-m-1st-year":{
-            "copy_of":"wind-double-play-m",
-            "changes":{
-                "monthly_charges":19.504
-            }
-        },
-        "wind-double-play-l-1st-year":{
-            "copy_of":"wind-double-play-l",
-            "changes":{
-                "monthly_charges":26.821
-            }
-        },
-        "vivodi-telefonet":{
-            "monthly_charges":15.00,
-            "free":{
-              "local_and_long_distance":{"mins":180,"min_duration":0,"step":60},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.023008},{"len":-1,"step":1,"charge":0.000383}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.000717}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":60,"step":60,"charge":0.141138},{"len":-1,"step":1,"charge":0.002352}]}
-                    ]
-                }
-            }
-        },
-        "vivodi-telefonet+":{
-            "copy_of":"vivodi-telefonet",
-            "changes":{
-                "monthly_charges":27.6504,
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "cosmoline-ana-klhsh":{
-            "monthly_charges":13.96,
-            "free":{
-              "local_and_long_distance":{"secs":0,"min_duration":0,"step":0},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":99999999,"charge":0.1476}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":99999999,"charge":0.1476}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.001615}]}
-                    ]
-                }
-            }
-        },
-        "cosmoline-basiko":{
-            "monthly_charges":11.6992,
-            "free":{
-              "local_and_long_distance":{"mins":60,"min_duration":0,"step":1},
-              "mobile":{"secs":0,"min_duration":0,"step":0}
-            },
-            "categories":{
-                "local":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.024748},{"len":-1,"step":1,"charge":0.000412}]}
-                    ]
-                },
-                "long_distance":{
-                    "use_free":"local_and_long_distance",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.000412}]}
-                    ]
-                },
-                "mobile":{
-                    "use_free":"mobile",
-                    "datetime":[
-                        {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.001615}]}
-                    ]
-                }
-            }
-        },
-        "cosmoline-basic-200":{
-            "copy_of":"cosmoline-basiko",
-            "changes":{
-                "monthly_charges":12.3984,
-                "free":{
-                    "local_and_long_distance":{"mins":200,"min_duration":0,"step":1}
-                },
-                "categories":{
-                    "local":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":120,"step":60,"charge":0.023902},{"len":-1,"step":1,"charge":0.000398}]}
-                        ]
-                    },
-                    "long_distance":{
-                        "datetime":[
-                            {"days":"MTWTFSS","hours":"012345678901234567890123","tiered_fee":[{"len":-1,"step":1,"charge":0.000398}]}
-                        ]
-                    }
-                }
-            }
-        },
-        "cosmoline-stathera-kinhta-100":{
-            "copy_of":"cosmoline-basiko",
-            "changes":{
-                "monthly_charges":13.7398,
-                "free":{
-                    "local_and_long_distance":{"mins":85,"min_duration":0,"step":1},
-                    "mobile":{"mins":15,"min_duration":0,"step":1}
-                }
-            }
-        },
-        "cosmoline-stathera-kinhta-200":{
-            "copy_of":"cosmoline-basiko",
-            "changes":{
-                "monthly_charges":16.7236,
-                "free":{
-                    "local_and_long_distance":{"mins":180,"min_duration":0,"step":1},
-                    "mobile":{"mins":20,"min_duration":0,"step":1}
-                }
-            }
-        },
-        "cosmoline-stathera-kinhta-300":{
-            "copy_of":"cosmoline-basiko",
-            "changes":{
-                "monthly_charges":25.1301,
-                "free":{
-                    "local_and_long_distance":{"mins":220,"min_duration":0,"step":1},
-                    "mobile":{"mins":80,"min_duration":0,"step":1}
-                }
-            }
-        },
-        "cosmoline-aperiorista-stathera":{
-            "copy_of":"cosmoline-basiko",
-            "changes":{
-                "monthly_charges":28.8618,
-                "free":{
-                    "local_and_long_distance":{"mins":99999999,"min_duration":0,"step":60}
-                }
-            }
-        },
-        "cosmoline-stathera-400":{
-            "copy_of":"cosmoline-basiko",
-            "changes":{
-                "monthly_charges":25.1301,
-                "free":{
-                    "local_and_long_distance":{"mins":400,"min_duration":0,"step":1}
-                }
+                "monthly_charges":"+6.5"
             }
         }
     }
