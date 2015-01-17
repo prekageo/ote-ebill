@@ -184,7 +184,15 @@ def get_calls_in_html(web_player, inv_info):
     'phone_no_info':codecs.getencoder('iso-8859-7')(settings.phone_no_info)[0],
   }
   base_path = 'https://myebill.ote.gr/wwwote/'
-  return web_player.visit('%sController' % base_path,validate_3,DATA3)
+  ret = web_player.visit('%sController' % base_path,None,DATA3)
+  root = html.fromstring(ret)
+  h2 = root.xpath('//h2')
+  if len(h2) > 0:
+    h2 = h2[0]
+    print h2.text.strip()
+    return None
+  validate_3(ret)
+  return ret
 
 def adapt_timedelta(timedelta):
   """Transform a timedelta type for SQLite storage."""
@@ -452,6 +460,8 @@ def main():
   for inv_info in invoices:
     print 'Getting records for invoice "%s"...' % inv_info
     html_str = get_calls_in_html(web_player, inv_info)
+    if html_str is None:
+      continue
     saved,unsaved = store_calls(settings.database_path,html_str)
     print 'Total records: %d, Saved: %d, Duplicates: %d' % (saved+unsaved,saved,
         unsaved)
