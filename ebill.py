@@ -228,6 +228,10 @@ class Call:
     u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 2 ΑΠΕΡΙΟΡΙΣΤΑ': 'ALD',
     u'Υπηρεσίες Πολυμεσικής Πληροφόρησης NEWSPHONE': 'ALK',
     u'Υπηρεσίες Πολυμεσικής Πληροφόρησης Ολιγοψήφιος 14784': 'ALK',
+    u'ΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'AST',
+    u'ΥΠΕΡΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'YPE',
+    u'ΠΡΟΣ ΚΙΝΗΤΆ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'KIN',
+    u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'ALD',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
