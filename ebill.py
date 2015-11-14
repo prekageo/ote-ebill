@@ -2,7 +2,7 @@
 # coding=utf-8
 
 """
-Downloads call records from OTE e-Bill (https://ebill.ote.gr/wwwote/) to an
+Downloads call records from OTE e-Bill (https://ebill.cosmote.gr/wwwote/) to an
 SQLite database named ote-ebill.db. Be sure the set the settings first in the
 corresponding file.
 
@@ -109,12 +109,6 @@ def assert_by_xpath(node, xpath):
   if len(node.xpath(xpath)) == 0:
     raise Exception('XPath "%s" not found in document.' % xpath)
 
-def validate_0(html_str):
-  """Validate the login page."""
-
-  root = html.fromstring(html_str)
-  assert_by_xpath(root,'//div[@class="signedin"]')
-
 def validate_1(html_str):
   """Validate the intermediate login page."""
 
@@ -143,10 +137,14 @@ def login(web_player):
   """ Login to the web application. """
 
   DATA1 = {'IDToken2':settings.password,'IDToken1':settings.username,
-    'realm':'oteportal','goto':'https://ebill.ote.gr/wwwote/index.jsp'}
+    'realm':'oteportal','goto':'https://www.cosmote.gr/fixed/my-ote/my-bill'}
 
-  base_path = 'https://myebill.ote.gr/wwwote/'
-  web_player.visit('https://idmextsso.ote.gr/opensso/UI/Login?realm=oteportal&goto=https://www.ote.gr/web/guest/consumer',validate_0,DATA1)
+  base_path = 'https://myebill.cosmote.gr/wwwote/'
+  response = web_player.visit('https://idmextsso.ote.gr/opensso/OTECloudLogin',None,DATA1)
+  root = html.fromstring(response)
+  value = root.xpath('//*[@name="iPlanetDirectoryProExtProd"]')[0].value
+  DATA2 = {'iPlanetDirectoryProExtProd':value,'stage':'2','target':'https://www.cosmote.gr/fixed/my-ote/my-bill'}
+  web_player.visit('https://idmextsso.cosmote.gr/opensso/OTECloudLogin',None,DATA2)
   response = web_player.visit('%s'%base_path,validate_1)
   root = html.fromstring(response)
   DATA2 = {
@@ -163,7 +161,7 @@ def get_invoices(web_player):
     'ebaction':'7',
     'ccname':'',
   }
-  base_path = 'https://myebill.ote.gr/wwwote/'
+  base_path = 'https://myebill.cosmote.gr/wwwote/'
   response = web_player.visit('%sController' % base_path,validate_4,DATA)
   root = html.fromstring(response)
   options = root.xpath('//select[@id="inv_info"]/option')
@@ -183,7 +181,7 @@ def get_calls_in_html(web_player, inv_info):
     'phones':settings.phones,
     'phone_no_info':codecs.getencoder('iso-8859-7')(settings.phone_no_info)[0],
   }
-  base_path = 'https://myebill.ote.gr/wwwote/'
+  base_path = 'https://myebill.cosmote.gr/wwwote/'
   ret = web_player.visit('%sController' % base_path,None,DATA3)
   root = html.fromstring(ret)
   h2 = root.xpath('//h2')
@@ -232,6 +230,12 @@ class Call:
     u'ΥΠΕΡΑΣΤΙΚΕΣ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'YPE',
     u'ΠΡΟΣ ΚΙΝΗΤΆ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'KIN',
     u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ ΟΤΕ DOUBLE PLAY 4 ΑΠΕΡΙΟΡΙΣΤΑ PLUS': 'ALD',
+    u'ΑΣΤΙΚΕΣ COSMOTE HOME DOUBLE PLAY 4 XL': 'AST',
+    u'ΥΠΕΡΑΣΤΙΚΕΣ COSMOTE HOME DOUBLE PLAY 4 XL': 'YPE',
+    u'ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE HOME DOUBLE PLAY 4 XL': 'KIN',
+    u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ COSMOTE HOME DOUBLE PLAY 4 XL': 'ALD',
+    u'ΣΥΝΤΟΜΟΙ ΚΩΔΙΚΟΙ': 'SKO',
+    u'ΥΠΗΡΕΣΙΕΣ ΠΟΛΥΜΕΣΙΚΗΣ ΠΛΗΡΟΦΟΡΗΣΗΣ ΤΡΙΤΩΝ': 'ALK',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
