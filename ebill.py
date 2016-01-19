@@ -236,6 +236,7 @@ class Call:
     u'ΠΡΟΣ ΑΛΛΑ ΣΤΑΘΕΡΑ ΔΙΚΤΥΑ COSMOTE HOME DOUBLE PLAY 4 XL': 'ALD',
     u'ΣΥΝΤΟΜΟΙ ΚΩΔΙΚΟΙ': 'SKO',
     u'ΥΠΗΡΕΣΙΕΣ ΠΟΛΥΜΕΣΙΚΗΣ ΠΛΗΡΟΦΟΡΗΣΗΣ ΤΡΙΤΩΝ': 'ALK',
+    u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΣΤΑΘΕΡΑ COSMOTE HOME DOUBLE PLAY 4 XL': 'STA',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):

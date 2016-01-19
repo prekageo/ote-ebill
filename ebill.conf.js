@@ -5,6 +5,9 @@
     "'mobile' if call['call_group'] == 'KIN' else None",
     
     "'local' if call['call_group'] == 'ALD' and len(call['callee'])==10 and call['callee'].startswith('21') else None",
-    "'long_distance' if call['call_group'] == 'ALD' and len(call['callee'])==10 else None"
+    "'long_distance' if call['call_group'] == 'ALD' and len(call['callee'])==10 else None",
+
+    "'local' if call['call_group'] == 'STA' and len(call['callee'])==10 and call['callee'].startswith('21') else None",
+    "'long_distance' if call['call_group'] == 'STA' and len(call['callee'])==10 else None"
   ]
 }
