@@ -237,6 +237,7 @@ class Call:
     u'ΣΥΝΤΟΜΟΙ ΚΩΔΙΚΟΙ': 'SKO',
     u'ΥΠΗΡΕΣΙΕΣ ΠΟΛΥΜΕΣΙΚΗΣ ΠΛΗΡΟΦΟΡΗΣΗΣ ΤΡΙΤΩΝ': 'ALK',
     u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΣΤΑΘΕΡΑ COSMOTE HOME DOUBLE PLAY 4 XL': 'STA',
+    u'ΥΠΗΡΕΣΙΕΣ ΠΟΛΥΜΕΣΙΚΗΣ ΠΛΗΡΟΦΟΡΗΣΗΣ ΟΤΕ': 'ALK',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
