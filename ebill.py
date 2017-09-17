@@ -239,6 +239,10 @@ class Call:
     u'ΥΠΗΡΕΣΙΕΣ ΠΟΛΥΜΕΣΙΚΗΣ ΠΛΗΡΟΦΟΡΗΣΗΣ ΤΡΙΤΩΝ': 'ALK',
     u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΣΤΑΘΕΡΑ COSMOTE HOME DOUBLE PLAY 4 XL': 'STA',
     u'ΥΠΗΡΕΣΙΕΣ ΠΟΛΥΜΕΣΙΚΗΣ ΠΛΗΡΟΦΟΡΗΣΗΣ ΟΤΕ': 'ALK',
+    u"'ΑΛΛΕΣ ΚΛΗΣΕΙΣ": 'ALK',
+    u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΣΤΑΘΕΡΑ COSMOTE HOME DOUBLE PLAY 24 XL': 'STA',
+    u'ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE HOME DOUBLE PLAY 24 XL': 'KIN',
+    u'ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE HOME 1000 ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE': 'KIN',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
