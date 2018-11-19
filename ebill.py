@@ -243,6 +243,7 @@ class Call:
     u'ΚΛΗΣΕΙΣ ΠΡΟΣ ΣΤΑΘΕΡΑ COSMOTE HOME DOUBLE PLAY 24 XL': 'STA',
     u'ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE HOME DOUBLE PLAY 24 XL': 'KIN',
     u'ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE HOME 1000 ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE': 'KIN',
+    u'ΠΡΟΣ ΚΙΝΗΤΑ COSMOTE ONE ΠΑΚΕΤΟ 1000 ΛΕΠΤΑ': 'KIN',
   }
 
   def __init__(self, service, callee, datetime, duration, seg, cost):
